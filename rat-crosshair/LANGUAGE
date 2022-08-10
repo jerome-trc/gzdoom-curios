@@ -1,5 +1,7 @@
 [eng default]
-RAT_XHAIR = "Rat's Minimal";
+RAT_XHAIR_HOLLOWT = "Rat's Minimal: Hollow T";
+RAT_XHAIR_CHEVRON = "Rat's Minimal: Chevron";
 
 [enu default]
-RAT_XHAIR = "Rat's Minimal";
+RAT_XHAIR_HOLLOWT = "Rat's Minimal: Hollow T";
+RAT_XHAIR_CHEVRON = "Rat's Minimal: Chevron";
