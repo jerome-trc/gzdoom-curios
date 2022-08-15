@@ -17,7 +17,9 @@ class CARTO_Marker : MapMarker
 		Sprite = Master.Sprite;
 		Frame = Master.Frame;
 		Translation = Master.Translation;
-		SetOrigin(Master.Pos, true);
+
+		if (Master.Pos != Pos)
+			SetOrigin(Master.Pos, true);
 	}
 }
 
