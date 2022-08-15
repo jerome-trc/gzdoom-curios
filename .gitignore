@@ -1,0 +1,24 @@
+# File system ##################################################################
+.DS_Store
+desktop.ini
+
+# Text editor/IDE ##############################################################
+.vs
+.atomignore
+*.swp
+*.swo
+Session.vim
+.cproject
+.idea
+*.iml
+.vscode
+.project
+.favorites.json
+.settings/
+
+*.pk3
+*.pk3.bak
+
+# Miscellaneous ################################################################
+gzdoom-crash.log
+/temp
