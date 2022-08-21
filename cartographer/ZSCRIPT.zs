@@ -34,9 +34,7 @@ class CARTO_EventHandler : EventHandler
 
 	final override void WorldThingSpawned(WorldEvent event)
 	{
-		if (!(event.Thing is 'Ammo') && !(event.Thing is 'Health') &&
-			!(event.Thing is 'Armor') && !(event.Thing is 'Weapon') && 
-			!(event.Thing is 'PowerupGiver'))
+		if (!(event.Thing is 'Inventory'))
 			return;
 
 		let ph = new('CARTO_MarkerPlaceholder');
