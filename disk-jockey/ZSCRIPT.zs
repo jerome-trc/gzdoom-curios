@@ -34,9 +34,7 @@ class DJ_EventHandler : StaticEventHandler
 
 	final override void OnRegister()
 	{
-		CurrentPlaylist = -1;
-		CurrentSong = -1;
-		MusicVolume = 1.0;
+		Reset();
 
 		int lump = -1, next = 0;
 
@@ -120,6 +118,12 @@ class DJ_EventHandler : StaticEventHandler
 
 	final override void NetworkProcess(ConsoleEvent event)
 	{
+		NetEvent_General(event);
+		NetEvent_Play(event);		
+	}
+
+	private void NetEvent_General(ConsoleEvent event)
+	{
 		if (!(event.Name ~== "diskjockey"))
 			return;
 
@@ -172,6 +176,8 @@ class DJ_EventHandler : StaticEventHandler
 			break;
 		case EVNDX_LEVEL:
 			{
+				CurrentPlaylist = -1;
+				CurrentSong = -1;
 				S_ChangeMusic("*");
 
 				Console.Printf(
@@ -213,6 +219,47 @@ class DJ_EventHandler : StaticEventHandler
 		}
 	}
 
-	final override void WorldLoaded(WorldEvent _) { MusicVolume = 1.0; }
-	final override void WorldUnloaded(WorldEvent _) { MusicVolume = 1.0; }
+	private void NetEvent_Play(ConsoleEvent event)
+	{
+		if (!(event.Name.Left(7) ~== "dj_play"))
+			return;
+
+		Array<string> tokens;
+		event.Name.Split(tokens, ":");
+
+		if (tokens.Size() < 2)
+			return;
+
+		for (uint i = 0; i < Playlists.Size(); i++)
+		{
+			let pl = Playlists[i];
+
+			for (uint j = 0; j < pl.Songs.Size(); j++)
+			{
+				let song = pl.Songs[j];
+
+				if (!(Wads.GetLumpName(song.Lump) ~== tokens[1]))
+					continue;
+
+				CurrentPlaylist = i;
+				ChangeMusic(song);
+				return;
+			}
+		}
+
+		Console.Printf(
+			"Failed to find song by lump name: %s",
+			tokens[1]
+		);
+	}
+
+	final override void WorldLoaded(WorldEvent _) { Reset(); }
+	final override void WorldUnloaded(WorldEvent _) { Reset(); }
+
+	private void Reset()
+	{
+		MusicVolume = 1.0;
+		CurrentPlaylist = -1;
+		CurrentSong = -1;
+	}
 }
