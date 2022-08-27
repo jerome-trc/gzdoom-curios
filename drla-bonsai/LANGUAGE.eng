@@ -1,0 +1,29 @@
+[eng default]
+
+// Player upgrades /////////////////////////////////////////////////////////////
+
+// TODO: Clarify these descriptions, since not every upgrade can give
+// exactly the effects associated with the class it's based on 
+
+RLLV_UPGRADE_AMMOCHAIN_NAME = "\c[Yellow]Marine Training\c-";
+RLLV_UPGRADE_AMMOCHAIN_DESC = "Gain the abilities of the Marine class.";
+
+RLLV_UPGRADE_FIREANGEL_NAME = "\c[Yellow]Demolitionist Discipline\c-";
+RLLV_UPGRADE_FIREANGEL_DESC = "Gain the abilities of the Demolitionist class.";
+
+RLLV_UPGRADE_SCAVENGER_NAME = "\c[Yellow]Technician Expertise\c-";
+RLLV_UPGRADE_SCAVENGER_DESC = "Gain the abilities of the Technician class.";
+
+RLLV_UPGRADE_SHARPSHOOTER_NAME = "\c[Yellow]Scout Tactics\c-";
+RLLV_UPGRADE_SHARPSHOOTER_DESC = "Gain the abilities of the Scout class.";
+
+RLLV_UPGRADE_SHELLSHOCK_NAME = "\c[Yellow]Renegade Experience\c-";
+RLLV_UPGRADE_SHELLSHOCK_DESC = "Gain the abilities of the Renegade class.";
+
+RLLV_UPGRADE_HOARDER_NAME = "Hoarder";
+RLLV_UPGRADE_HOARDER_DESC = "Gain capacity for 1 extra weapon.";
+
+// Weapon upgrades /////////////////////////////////////////////////////////////
+
+RLLV_UPGRADE_RESERVEFEED_NAME = "Reserve Feed";
+RLLV_UPGRADE_RESERVEFEED_DESC = "Feeds from your reserve ammo instead of a magazine.";

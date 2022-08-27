@@ -11,6 +11,9 @@ zip -0 -r ../out/colourful-hell-prog.pk3 *
 cd ../disk-jockey
 zip -0 -r ../out/disk-jockey.pk3 *
 
+cd ../drla-bonsai
+zip -0 -r ../out/drla-bonsai.pk3 *
+
 cd ../drla-thrifty
 zip -0 -r ../out/drla-thrifty.pk3 *
 
