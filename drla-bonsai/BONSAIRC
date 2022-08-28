@@ -1,6 +1,9 @@
 # Defense Drone Launcher
 type RLLaserPulseLauncher: IGNORE;
 
+# Gets recognised as PROJECTILE otherwise
+type RLLaserRifle: HITSCAN;
+
 # Lags like hell
 disable RLNapalmLauncher: TFLV_Upgrade_FragmentationShots;
 
