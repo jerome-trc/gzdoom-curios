@@ -163,7 +163,16 @@ class RLLV_Upgrade_Hoarder : TFLV_Upgrade_BaseUpgrade
 	final override void Tick(Actor owner)
 	{
 		if (LimitItem == null)
+		{
 			LimitItem = owner.FindInventory('RLWeaponLimit');
+
+			if (LimitItem == null)
+			{
+				LimitItem = Inventory(Actor.Spawn('RLWeaponLimit', owner.Pos));
+				LimitItem.AttachToOwner(owner);
+				LimitItem.Amount = RLLV_Utils.WeaponCount(owner);
+			}
+		}
 
 		LimitItem.MaxAmount = LimitItem.Default.MaxAmount + Level;
 	}

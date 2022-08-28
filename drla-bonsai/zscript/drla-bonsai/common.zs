@@ -1,5 +1,16 @@
 struct RLLV_Utils
 {
+	static uint WeaponCount(Actor pawn)
+	{
+		uint ret = 0;
+
+		for (Inventory i = pawn.Inv; i != null; i = i.Inv)
+			if (i is 'RLWeapon')
+				ret++;
+
+		return ret;
+	}
+
 	static bool PlayerHasUpgrade(
 		TFLV_PerPlayerStats stats,
 		class<TFLV_Upgrade_BaseUpgrade> upgrade_t,
