@@ -1,6 +1,9 @@
 # Defense Drone Launcher
 type RLLaserPulseLauncher: IGNORE;
 
+# Lags like hell
+disable RLNapalmLauncher: TFLV_Upgrade_FragmentationShots;
+
 # Class perk upgrades
 register RLLV_Upgrade_Ammochain RLLV_Upgrade_Fireangel RLLV_Upgrade_Scavenger RLLV_Upgrade_Sharpshooter RLLV_Upgrade_Shellshock;
 

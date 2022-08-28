@@ -1,6 +1,7 @@
 class RLLV_Upgrade_ReserveFeed : TFLV_Upgrade_BaseUpgrade
 {
-	final override bool IsSuitableForWeapon(TFLV_WeaponInfo info) {
+	final override bool IsSuitableForWeapon(TFLV_WeaponInfo info)
+	{
 		let weap_t = (class<Weapon>)(info.wpnClass);
 		
 		if (!(weap_t is 'RLWeapon'))
