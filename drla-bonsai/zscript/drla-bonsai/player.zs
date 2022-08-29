@@ -23,7 +23,8 @@ class RLLV_Upgrade_Ammochain : TFLV_Upgrade_BaseUpgrade
 		if (stats.Owner.FindInventory('RLAmmoChainPerk') != null)
 			return false;
 
-		return RLLV_Utils.AnyWeaponHasUpgrade(stats, 'RLLV_Upgrade_ReserveFeed');
+		// TODO: Check for Reserve Feed once it works properly
+		return true;
 	}
 }
 

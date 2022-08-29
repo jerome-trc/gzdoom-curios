@@ -25,5 +25,8 @@ RLLV_UPGRADE_HOARDER_DESC = "Gain capacity for 1 extra weapon.";
 
 // Weapon upgrades /////////////////////////////////////////////////////////////
 
+RLLV_UPGRADE_STATESPEED_NAME = "Turbocharge";
+RLLV_UPGRADE_STATESPEED_DESC = "Weapon fires and reloads more quickly with each level.";
+
 RLLV_UPGRADE_RESERVEFEED_NAME = "Reserve Feed";
 RLLV_UPGRADE_RESERVEFEED_DESC = "Feeds from your reserve ammo instead of a magazine.";

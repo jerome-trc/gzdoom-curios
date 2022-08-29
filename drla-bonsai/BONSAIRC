@@ -14,4 +14,4 @@ register RLLV_Upgrade_Ammochain RLLV_Upgrade_Fireangel RLLV_Upgrade_Scavenger RL
 register RLLV_Upgrade_Hoarder;
 
 # Weapon upgrades
-register RLLV_Upgrade_ReserveFeed;
+register RLLV_Upgrade_StateSpeed;
