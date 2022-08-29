@@ -1,3 +1,17 @@
+enum RLLV_Rarity
+{
+	RLLV_RARITY_NONE,
+	RLLV_RARITY_STANDARD,
+	RLLV_RARITY_EXOTIC,
+	RLLV_RARITY_SUPERIOR,
+	RLLV_RARITY_BASIC,
+	RLLV_RARITY_ADVANCED,
+	RLLV_RARITY_MASTER,
+	RLLV_RARITY_UNIQUE,
+	RLLV_RARITY_LEGENDARY,
+	RLLV_RARITY_DEMONIC
+}
+
 struct RLLV_Utils
 {
 	static uint WeaponCount(Actor pawn)
@@ -83,14 +97,52 @@ struct RLLV_Utils
 		return false;
 	}
 
-	static bool WeaponIsAssembly(class<Weapon> weap_t)
+	static RLLV_Rarity WeaponRarity(class<Weapon> weap_t)
 	{
 		let pickup_tn = String.Format("%sPickup", weap_t.GetClassName());
 		let pickup_t = (class<CustomInventory>)(pickup_tn);
 
-		return
-			pickup_t is 'RLBasicAssembledWeaponPickup' ||
-			pickup_t is 'RLAdvancedAssembledWeaponPickup' ||
-			pickup_t is 'RLMasterAssembledWeaponPickup';
+		static const name PICKUP_TYPENAMES[] = {
+			'RLStandardWeaponPickup',
+			'RLExoticWeaponPickup',
+			'RLSuperiorWeaponPickup',
+			'RLBasicAssembledWeaponPickup',
+			'RLAdvancedAssembledWeaponPickup',
+			'RLMasterAssembledWeaponPickup',
+			'RLUniqueWeaponPickup',
+			'RLLegendaryWeaponPickup',
+			'RLDemonicWeaponPickup'
+		};
+
+		static const RLLV_Rarity RARITIES[] = {
+			RLLV_RARITY_STANDARD,
+			RLLV_RARITY_EXOTIC,
+			RLLV_RARITY_SUPERIOR,
+			RLLV_RARITY_BASIC,
+			RLLV_RARITY_ADVANCED,
+			RLLV_RARITY_MASTER,
+			RLLV_RARITY_UNIQUE,
+			RLLV_RARITY_LEGENDARY,
+			RLLV_RARITY_DEMONIC
+		};
+
+		for (uint i = 0; i < PICKUP_TYPENAMES.Size(); i++)
+			if (pickup_t is PICKUP_TYPENAMES[i])
+				return RARITIES[i];
+
+		return RLLV_RARITY_NONE;
+	}
+
+	static bool WeaponIsAssembly(class<Weapon> weap_t)
+	{
+		switch (WeaponRarity(weap_t))
+		{
+		case RLLV_RARITY_BASIC:
+		case RLLV_RARITY_ADVANCED:
+		case RLLV_RARITY_MASTER:
+			return true;
+		default:
+			return false;
+		}
 	}
 }
