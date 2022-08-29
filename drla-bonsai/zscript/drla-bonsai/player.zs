@@ -158,7 +158,6 @@ class RLLV_Upgrade_Shellshock : TFLV_Upgrade_BaseUpgrade
 class RLLV_Upgrade_Hoarder : TFLV_Upgrade_BaseUpgrade
 {
 	private Inventory LimitItem;
-	private bool Applied;
 
 	final override void Tick(Actor owner)
 	{
