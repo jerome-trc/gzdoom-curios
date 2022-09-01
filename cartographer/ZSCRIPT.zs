@@ -32,10 +32,31 @@ class CARTO_EventHandler : EventHandler
 {
 	const STATNUM_PLACEHOLDER = Thinker.STAT_STATIC + 2;
 
+	static const name BUILTIN_EXCLUSIONS[] = {
+		'Zhs2_IS_BaseItem'
+	};
+
+	private Array<class<Inventory> > Exclusions;
+
+	final override void OnRegister()
+	{
+		for (uint i = 0; i < BUILTIN_EXCLUSIONS.Size(); i++)
+		{
+			let t = (class<Inventory>)(BUILTIN_EXCLUSIONS[i]);
+
+			if (t != null)
+				Exclusions.Push(t);
+		}
+	}
+
 	final override void WorldThingSpawned(WorldEvent event)
 	{
 		if (!(event.Thing is 'Inventory'))
 			return;
+
+		for (uint i = 0; i > Exclusions.Size(); i++)
+			if (event.Thing.GetClass() == Exclusions[i])
+				return;
 
 		let ph = new('CARTO_MarkerPlaceholder');
 		ph.ChangeStatNum(STATNUM_PLACEHOLDER);
