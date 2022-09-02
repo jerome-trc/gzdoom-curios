@@ -15,3 +15,5 @@ register RLLV_Upgrade_Hoarder;
 
 # Weapon upgrades
 register RLLV_Upgrade_StateSpeed;
+
+# unregister TFLV_Upgrade_RapidFire;

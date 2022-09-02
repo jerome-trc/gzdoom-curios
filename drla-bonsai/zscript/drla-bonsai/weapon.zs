@@ -52,8 +52,6 @@ class RLLV_Upgrade_ReserveFeed : TFLV_Upgrade_BaseUpgrade
 
 class RLLV_Upgrade_StateSpeed : TFLV_Upgrade_BaseUpgrade
 {
-	private RLLV_PowerDoubleFiringSpeed Power;
-
 	static const statelabel CHECK_STATES[] = {
 		'FireFinish',
 		'FireFinishF',
@@ -116,51 +114,20 @@ class RLLV_Upgrade_StateSpeed : TFLV_Upgrade_BaseUpgrade
 		return false;
 	}
 
-	final override void Tick(Actor owner)
+	private void AdvancePSprite(PSprite psp) const
 	{
-		let weap = owner.Player.ReadyWeapon;
-		let psp = owner.Player.GetPSprite(PSP_WEAPON);
-
-		if (weap == null || psp == null || psp.CurState == null)
+		if (psp == null || psp.CurState == null)
 			return;
 
-		if (Power == null)
-		{
-			if (psp.CurState.InStateSequence(weap.GetUpState()))
-			{
-				Power = RLLV_PowerDoubleFiringSpeed(
-					Actor.Spawn('RLLV_PowerDoubleFiringSpeed', owner.Pos)
-				);
-				Power.AttachToOwner(owner);
-			}
-		}
-		else
-		{
-			if (psp.CurState.InStateSequence(weap.GetDownState()))
-			{
-				Power.DepleteOrDestroy();
-				Power = null;
-			}
-		}
+		psp.Tics = Max(psp.Tics - int(Level), 0);
 
-		psp.Tics = Max(psp.Tics - int(Level), 1);
-	}
-}
-
-class RLLV_PowerDoubleFiringSpeed : PowerDoubleFiringSpeed
-{
-	Default
-	{
-		Powerup.Duration 0x7FFFFFFD;
+		if (psp.Tics <= 0)
+			psp.SetState(psp.CurState.NextState);
 	}
 
-	final override void DoEffect()
+	final override void Tick(Actor owner)
 	{
-		// (Rat):
-		// Dear GZDoom:
-		// stop with the implicit behaviour everywhere
-		// thanks
-		// I shouldn't have to remove the colormap
-		// from one of the most basic powerup classes
+		AdvancePSprite(owner.Player.GetPSprite(PSP_WEAPON));
+		AdvancePSprite(owner.Player.GetPSprite(PSP_FLASH));
 	}
 }
