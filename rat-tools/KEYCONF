@@ -1,4 +1,4 @@
-alias rat_legen_ "netevent rat_legen"
+alias rat_legen "netevent rat_net 0"
 
 alias rat_bonsai_plvl "netevent bonsai-debug,p-xp 999"
 alias rat_bonsai_wlvl "netevent bonsai-debug,w-xp 999999"
