@@ -1,5 +1,8 @@
 alias rat_legen "netevent rat_net 0"
 
+alias rat_leveldiag "event rat_console 0"
+alias rat_lvldiag "rat_leveldiag"
+
 alias rat_bonsai_plvl "netevent bonsai-debug,p-xp 999"
 alias rat_bonsai_wlvl "netevent bonsai-debug,w-xp 999999"
 alias rat_bonsai_lvl "rat_bonsai_plvl ; rat_bonsai_wlvl"

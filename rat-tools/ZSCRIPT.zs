@@ -45,4 +45,39 @@ class RATT_EventHandler : EventHandler
 			return;
 		}
 	}
+
+	enum ConsoleArg
+	{
+		CONSARG_LEVELDIAG
+	}
+
+	final override void ConsoleProcess(ConsoleEvent event)
+	{
+		if (!(event.Name ~== "rat_console"))
+			return;
+
+		switch (event.Args[0])
+		{
+		case CONSARG_LEVELDIAG:
+			PrintLevelDiag();
+			break;
+		default:
+			Console.Printf("ERROR: Invalid console event argument: %d", event.Args[0]);
+			break;
+		}
+	}
+
+	private static ui void PrintLevelDiag()
+	{
+		Console.Printf(
+			"Level name: %s\n"
+			"Map name: %s\n"
+			"Level num: %d\n"
+			"Checksum: %s\n",
+			Level.LevelName,
+			Level.MapName,
+			Level.LevelNum,
+			Level.GetChecksum()
+		);
+	}
 }
