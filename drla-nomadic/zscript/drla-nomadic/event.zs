@@ -17,6 +17,8 @@ class RLNL_EventHandler : EventHandler
 	final override void WorldUnloaded(WorldEvent event)
 	{
 		let iter = ThinkerIterator.Create('Inventory');
+		// Resolve dynamically in case user isn't running monster pack
+		name danger_t = 'RLDangerLevel';
 
 		Inventory item = null;
 
@@ -25,7 +27,7 @@ class RLNL_EventHandler : EventHandler
 			if (item.Owner == null)
 				continue;
 
-			if (item is 'RLDangerLevel' ||
+			if (item is danger_t ||
 				item is 'RLUniqueBossLevel' ||
 				item is 'RLDemonArtifactItem')
 				continue;
