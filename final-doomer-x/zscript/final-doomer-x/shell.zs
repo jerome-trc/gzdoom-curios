@@ -90,6 +90,11 @@ class FDX_Shell_ZS : FDX_ShellPickup
 		GSHE A -1 Bright;
 		Loop;
 	}
+
+	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	{
+		return FDX_Common.ShotgunTheme(pawn);
+	}
 }
 
 class FDX_ShellBox_ZS : FDX_ShellPickup
@@ -171,5 +176,10 @@ class FDX_ShellBox_ZS : FDX_ShellPickup
 	Spawn.Fancy:
 		GSHE B -1 Bright;
 		Loop;
+	}
+
+	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	{
+		return FDX_Common.SuperShotgunTheme(pawn);
 	}
 }

@@ -1,10 +1,5 @@
 class FDX_BFGPickupBase : FDX_AmmoPickup abstract
 {
-	final override class<Inventory> GivenAmmoType(PlayerPawn pawn) const
-	{
-		return 'FDBFGAmmoPickupCounter';
-	}
-
 	final override bool CanPickup(Actor toucher)
 	{
 		if (!super.CanPickup(toucher))
@@ -16,6 +11,16 @@ class FDX_BFGPickupBase : FDX_AmmoPickup abstract
 			return FDX_Common.HasFreeBFGCapacity(pawn, CalcGiveAmount(pawn));
 		else
 			return !FDX_Common.BFGFull(PlayerPawn(toucher));
+	}
+
+	final override class<Inventory> GivenAmmoType(PlayerPawn pawn) const
+	{
+		return 'FDBFGAmmoPickupCounter';
+	}
+
+	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	{
+		return FDX_Common.BFGTheme(pawn);
 	}
 }
 

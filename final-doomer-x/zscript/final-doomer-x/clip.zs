@@ -23,6 +23,11 @@ class FDX_ClipPickup : FDX_AmmoPickup abstract
 	{
 		return FDX_Common.BulletType(pawn);
 	}
+
+	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	{
+		return FDX_Common.ChaingunTheme(pawn);
+	}
 }
 
 class FDX_Clip_ZS : FDX_ClipPickup

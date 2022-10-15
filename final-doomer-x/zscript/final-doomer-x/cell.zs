@@ -23,6 +23,11 @@ class FDX_CellPickup : FDX_AmmoPickup abstract
 	{
 		return FDX_Common.CellType(pawn);
 	}
+
+	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	{
+		return FDX_Common.PlasmaRifleTheme(pawn);
+	}
 }
 
 class FDX_Cell_ZS : FDX_CellPickup

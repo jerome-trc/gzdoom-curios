@@ -92,7 +92,7 @@ class FDX_AmmoPickup : CustomInventory abstract
 		super.DoPickupSpecial(toucher);
 
 		let pawn = PlayerPawn(toucher);
-		let theme = FDX_Common.MainTheme(pawn);
+		let theme = RelevantTheme(pawn);
 
 		uint giveAmt = CalcGiveAmount(pawn) * PlayerAmountMultiplier(pawn);
 
@@ -273,6 +273,7 @@ class FDX_AmmoPickup : CustomInventory abstract
 	// This needs to return a `class<Inventory>` rather than a `class<Ammo` in
 	// order to generalise over `FDBFGAmmoPickupCounter`.
 	abstract protected class<Inventory> GivenAmmoType(PlayerPawn pawn) const;
+	abstract FDX_Theme RelevantTheme(PlayerPawn pawn) const;
 
 	protected action state A_FDX_AmmoSpawn()
 	{

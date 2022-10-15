@@ -98,6 +98,12 @@ struct FDX_Common play
 		'FDWhitemareBFGCharge'
 	};
 
+	static bool Customizer()
+	{
+		name n = 'FDCPlayer';
+		return (class<PlayerPawn>)(n) != null;
+	}
+
 	static FDX_Theme MainTheme(PlayerPawn pawn)
 	{
 		static const name TOKENS[] = {
@@ -126,34 +132,94 @@ struct FDX_Common play
 		return 0;
 	}
 
+	static FDX_Theme ShotgunTheme(PlayerPawn pawn)
+	{
+		if (!Customizer())
+			return MainTheme(pawn);
+		else
+			return CVar.GetCVar("FDCShotgunToken").GetInt();
+	}
+
+	static FDX_Theme SuperShotgunTheme(PlayerPawn pawn)
+	{
+		if (!Customizer())
+			return MainTheme(pawn);
+		else
+			return CVar.GetCVar("FDCSuperShotgunToken").GetInt();
+	}
+
+	static FDX_Theme ChaingunTheme(PlayerPawn pawn)
+	{
+		if (!Customizer())
+			return MainTheme(pawn);
+		else
+			return CVar.GetCVar("FDCChaingunToken").GetInt();
+	}
+
+	static FDX_Theme RocketLauncherTheme(PlayerPawn pawn)
+	{
+		if (!Customizer())
+			return MainTheme(pawn);
+		else
+			return CVar.GetCVar("FDCRocketLauncherToken").GetInt();
+	}
+
+	static FDX_Theme PlasmaRifleTheme(PlayerPawn pawn)
+	{
+		if (!Customizer())
+			return MainTheme(pawn);
+		else
+			return CVar.GetCVar("FDCPlasmaRifleToken").GetInt();
+	}
+
+	static FDX_Theme BFGTheme(PlayerPawn pawn)
+	{
+		if (!Customizer())
+			return MainTheme(pawn);
+		else
+			return CVar.GetCVar("FDCBFG9000Token").GetInt();
+	}
+
 	static class<Ammo> BulletType(PlayerPawn pawn)
 	{
-		return FDX_Common.BULLET_TYPES[MainTheme(pawn)];
+		if (!Customizer())
+			return FDX_Common.BULLET_TYPES[MainTheme(pawn)];
+		else
+			return 'Clip';
 	}
 
 	static class<Ammo> ShellType(PlayerPawn pawn)
 	{
-		return FDX_Common.SHELL_TYPES[MainTheme(pawn)];
+		if (!Customizer())
+			return FDX_Common.SHELL_TYPES[MainTheme(pawn)];
+		else
+			return 'Shell';
 	}
 
 	static class<Ammo> RocketAmmoType(PlayerPawn pawn)
 	{
-		return FDX_Common.ROCKETAMMO_TYPES[MainTheme(pawn)];
+		if (!Customizer())
+			return FDX_Common.ROCKETAMMO_TYPES[MainTheme(pawn)];
+		else
+			return 'RocketAmmo';
 	}
 
 	static class<Ammo> CellType(PlayerPawn pawn)
 	{
-		return FDX_Common.CELL_TYPES[MainTheme(pawn)];
+		if (!Customizer())
+			return FDX_Common.CELL_TYPES[MainTheme(pawn)];
+		else
+			return 'Cell';
 	}
 
 	static class<Inventory> BFGCollectCounterType(PlayerPawn pawn)
 	{
-		return FDX_Common.BFG_COLLECT_COUNTERS[MainTheme(pawn)];
+		return FDX_Common.BFG_COLLECT_COUNTERS[BFGTheme(pawn)];
 	}
 
 	static class<Inventory> BFGChargeType(PlayerPawn pawn)
 	{
-		return FDX_Common.BFG_CHARGE_TYPES[MainTheme(pawn)];
+		return FDX_Common.BFG_CHARGE_TYPES[BFGTheme(pawn)];
 	}
 
 	private static bool AmmoFull(Inventory item)

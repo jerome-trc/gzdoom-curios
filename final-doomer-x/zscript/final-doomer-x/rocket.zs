@@ -23,6 +23,11 @@ class FDX_RocketAmmoPickup : FDX_AmmoPickup abstract
 	{
 		return FDX_Common.RocketAmmoType(pawn);
 	}
+
+	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	{
+		return FDX_Common.RocketLauncherTheme(pawn);
+	}
 }
 
 class FDX_RocketAmmo_ZS : FDX_RocketAmmoPickup
