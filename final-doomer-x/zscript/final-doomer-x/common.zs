@@ -134,7 +134,7 @@ struct FDX_Common play
 
 	static FDX_Theme ShotgunTheme(PlayerPawn pawn)
 	{
-		if (!Customizer())
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
 		else
 			return CVar.GetCVar("FDCShotgunToken").GetInt();
@@ -142,7 +142,7 @@ struct FDX_Common play
 
 	static FDX_Theme SuperShotgunTheme(PlayerPawn pawn)
 	{
-		if (!Customizer())
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
 		else
 			return CVar.GetCVar("FDCSuperShotgunToken").GetInt();
@@ -150,7 +150,7 @@ struct FDX_Common play
 
 	static FDX_Theme ChaingunTheme(PlayerPawn pawn)
 	{
-		if (!Customizer())
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
 		else
 			return CVar.GetCVar("FDCChaingunToken").GetInt();
@@ -158,7 +158,7 @@ struct FDX_Common play
 
 	static FDX_Theme RocketLauncherTheme(PlayerPawn pawn)
 	{
-		if (!Customizer())
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
 		else
 			return CVar.GetCVar("FDCRocketLauncherToken").GetInt();
@@ -166,7 +166,7 @@ struct FDX_Common play
 
 	static FDX_Theme PlasmaRifleTheme(PlayerPawn pawn)
 	{
-		if (!Customizer())
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
 		else
 			return CVar.GetCVar("FDCPlasmaRifleToken").GetInt();
@@ -174,7 +174,7 @@ struct FDX_Common play
 
 	static FDX_Theme BFGTheme(PlayerPawn pawn)
 	{
-		if (!Customizer())
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
 		else
 			return CVar.GetCVar("FDCBFG9000Token").GetInt();

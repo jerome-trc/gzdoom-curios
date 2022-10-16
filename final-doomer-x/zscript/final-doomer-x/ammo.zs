@@ -319,7 +319,7 @@ mixin class FDX_AmmoPickupImpl
 
 	final override uint CalcGiveAmount(PlayerPawn toucher)
 	{
-		return GIVE_AMOUNTS[FDX_Common.MainTheme(toucher)];
+		return GIVE_AMOUNTS[RelevantTheme(toucher)];
 	}
 
 	protected action void A_FDX_SpawnPickupVisuals(bool dynamic)
