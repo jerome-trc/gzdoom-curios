@@ -23,12 +23,12 @@ class FDX_EventHandler : EventHandler
 		return ret;
 	}
 
-	final override void PlayerSpawned(PlayerEvent event)
+	private static void FixFDCAmmoCapacities(uint playerNumber)
 	{
 		if (!FDX_Common.Customizer())
 			return;
 
-		PlayerInfo p = Players[event.PlayerNumber];
+		PlayerInfo p = Players[playerNumber];
 
 		let iClip = Ammo(FindOrGive(p.MO, 'Clip'));
 		let iShell = Ammo(FindOrGive(p.MO, 'Shell'));
@@ -64,5 +64,15 @@ class FDX_EventHandler : EventHandler
 
 		iCell.MaxAmount = cellDefs.MaxAmount;
 		iCell.BackpackMaxAmount = cellDefs.BackpackMaxAmount;
+	}
+
+	final override void PlayerSpawned(PlayerEvent event)
+	{
+		FixFDCAmmoCapacities(event.PlayerNumber);
+	}
+
+	final override void PlayerEntered(PlayerEvent event)
+	{
+		FixFDCAmmoCapacities(event.PlayerNumber);
 	}
 }
