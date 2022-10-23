@@ -75,4 +75,10 @@ class FDX_EventHandler : EventHandler
 	{
 		FixFDCAmmoCapacities(event.PlayerNumber);
 	}
+
+	final override void CheckReplacement(ReplaceEvent event)
+	{
+		if (event.Replacee is 'FDBerserkPickup')
+			event.Replacement = 'FDX_Berserk';
+	}
 }
