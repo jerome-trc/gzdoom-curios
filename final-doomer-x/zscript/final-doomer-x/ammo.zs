@@ -207,7 +207,7 @@ class FDX_AmmoPickup : CustomInventory abstract
 
 		for (; apc.Amount >= 0; apc.Amount--)
 		{
-			if ((cc.Amount + 1) >= cc.MaxAmount &&
+			if ((cc.Amount + 1) > cc.MaxAmount &&
 				charge.Amount >= charge.MaxAmount)
 			{
 				leftover += apc.Amount;

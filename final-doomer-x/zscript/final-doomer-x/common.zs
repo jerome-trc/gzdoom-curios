@@ -271,7 +271,10 @@ struct FDX_Common play
 			cc = pawn.FindInventory(cc_t);
 		}
 
-		return charge.Amount >= charge.MaxAmount && cc.Amount >= cc.MaxAmount;
+		if (charge.Amount >= charge.MaxAmount)
+			return false;
+		else
+			return cc.Amount >= cc.MaxAmount;
 	}
 
 	private static bool AmmoHasFreeCapacity(Inventory item, uint amount)
