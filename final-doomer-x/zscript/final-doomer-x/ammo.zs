@@ -209,18 +209,24 @@ class FDX_AmmoPickup : CustomInventory abstract
 
 		for (; apc.Amount >= 0; apc.Amount--)
 		{
-			if ((cc.Amount + 1) > cc.MaxAmount &&
-				charge.Amount >= charge.MaxAmount)
+			if (cc.Amount >= cc.MaxAmount)
 			{
-				leftover += apc.Amount;
-				break;
+				if (charge.Amount >= charge.MaxAmount)
+				{
+					cc.Amount = Max(cc.Amount, cc.MaxAmount);
+					leftover += apc.Amount;
+					break;
+				}
+				else
+				{
+					charge.Amount++;
+					cc.Amount = 0;
+				}
 			}
-
-			if (++cc.Amount < cc.MaxAmount)
-				continue;
-
-			cc.Amount = 0;
-			charge.Amount++;
+			else
+			{
+				cc.Amount++;
+			}
 		}
 
 		apc.DepleteOrDestroy();
@@ -279,9 +285,15 @@ class FDX_AmmoPickup : CustomInventory abstract
 
 	protected action state A_FDX_AmmoSpawn()
 	{
-		if (FD_bfgammosystem == FDX_BFGAMMO_CELLSEPARATE ||
-			(FD_bfgammosystem == FDX_BFGAMMO_LARGESEPARATE &&
-			invoker.IsLargePickup()))
+		bool bfgSpawns =
+			FD_bfgammosystem == FDX_BFGAMMO_LARGESEPARATE &&
+			invoker.IsLargePickup();
+
+		bfgSpawns |=
+			FD_bfgammosystem == FDX_BFGAMMO_CELLSEPARATE &&
+			invoker is 'FDX_CellPickup';
+
+		if (bfgSpawns)
 		{
 			for (uint i = 0; i < invoker.BFGAmmoPickupCount; i++)
 			{
