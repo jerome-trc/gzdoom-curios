@@ -4,7 +4,7 @@
 
 Any GZDoom mod I've developed that's too small to merit its own repository goes into here.
 
-All source code within is provided under the [MIT License](/LICENSE).
+All source code within, unless otherwise specified, is provided under the [MIT License](/LICENSE).
 
 ## Contents
 

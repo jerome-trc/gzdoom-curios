@@ -1,0 +1,13 @@
+// Commonwealth English localization.
+
+[eng default]
+
+FDX_MODTITLE = "Final Doomer Expanded";
+
+FDX_OPTTITLE = "\c[Yellow]Final Doomer Expanded:\c[White] Preferences";
+
+FDX_OPTCAT_GAMEPLAY = "\c[Green]Gameplay Options";
+FDX_OPTCAT_PERF = "\c[Green]Performance Options";
+
+FDX_OPTLBL_WASTEPROOFSMALL = "Waste-Proof Small Ammo Pickups";
+FDX_OPTLBL_PROJTRAILS = "Projectile Trails";

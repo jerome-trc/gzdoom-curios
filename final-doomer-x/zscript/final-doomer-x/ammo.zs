@@ -84,7 +84,7 @@ class FDX_AmmoPickup : CustomInventory abstract
 	{
 		return
 			!IsLargePickup() &&
-			CVar.GetCVar("FDX_wasteproof", pawn.Player).GetBool();
+			CVar.GetCVar("FDX_wasteproof_small", pawn.Player).GetBool();
 	}
 
 	final override void DoPickupSpecial(Actor toucher)

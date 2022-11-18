@@ -80,5 +80,9 @@ class FDX_EventHandler : EventHandler
 	{
 		if (event.Replacee is 'FDBerserkPickup')
 			event.Replacement = 'FDX_Berserk';
+		else if (event.Replacee.GetClassName() == 'FDBTSXPlasmaProjectile')
+			event.Replacement = 'FDX_BTSXPlasmaProjectile';
+		else if (event.Replacee.GetClassName() == 'FDBTSXFancyPlasmaProjectile')
+			event.Replacement = 'FDX_BTSXFancyPlasmaProjectile';
 	}
 }

@@ -1,1 +1,5 @@
-user bool FDX_wasteproof = false;
+server bool FDX_projtrails = true;
+
+////////////////////////////////////////////////////////////////////////////////
+
+user bool FDX_wasteproof_small = false;
