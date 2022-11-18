@@ -150,7 +150,9 @@ class FDX_AmmoPickup : CustomInventory abstract
 		AmmoPickupSound(pawn, String.Format(pkupSnd));
 		AmmoPickupMessage(pawn, ResolvePickupMessage(theme, partial));
 
-		if (FD_bfgammosystem == 0 && IsLargePickup() && BFGAmmoMulti > 0)
+		if (FD_bfgammosystem == FDX_BFGAMMO_ALLLARGE &&
+			IsLargePickup() &&
+			BFGAmmoMulti > 0)
 		{
 			let cv = CVar.GetCVar("FD_bfgammoamount", pawn.Player).GetFloat();
 			let bfgAmt = BFGAmmoMulti * cv;
@@ -161,7 +163,7 @@ class FDX_AmmoPickup : CustomInventory abstract
 			pawn.GiveInventory('FDBFGAmmoPickupCounter', bfgAmt);
 			DispenseBFGAmmo(pawn);
 		}
-		else if (FD_bfgammosystem == 1)
+		else if (FD_bfgammosystem == FDX_BFGAMMO_FROMCELL)
 		{
 			let bfgAmt = 0;
 			let cv = CVar.GetCVar("FD_bfgammoamount", pawn.Player).GetFloat();
@@ -277,8 +279,9 @@ class FDX_AmmoPickup : CustomInventory abstract
 
 	protected action state A_FDX_AmmoSpawn()
 	{
-		if (FD_bfgammosystem == 2 ||
-			(FD_bfgammosystem == 3 && invoker.IsLargePickup()))
+		if (FD_bfgammosystem == FDX_BFGAMMO_CELLSEPARATE ||
+			(FD_bfgammosystem == FDX_BFGAMMO_LARGESEPARATE &&
+			invoker.IsLargePickup()))
 		{
 			for (uint i = 0; i < invoker.BFGAmmoPickupCount; i++)
 			{

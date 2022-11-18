@@ -1,6 +1,6 @@
 struct FDX_Utils play
 {
-	static bool InvMaxed(Actor owner, class<Inventory> type)
+	static clearscope bool InvMaxed(Actor owner, class<Inventory> type)
 	{
 		let item = owner.FindInventory(type);
 
@@ -98,13 +98,61 @@ struct FDX_Common play
 		'FDWhitemareBFGCharge'
 	};
 
-	static bool Customizer()
+	static const name PISTOL_TYPES[] = {
+		'FDPlutPistol',
+		'FDTNTPistol',
+		'FDDoom2Pistol',
+		'FDAliensPistol',
+		'FDJPCPPistol',
+		'FDBTSXPistol',
+		'FDAlienVendettaPistol',
+		'FDHellboundPistol',
+		'FDWhitemarePistol'
+	};
+
+	static const name PISTOL_TYPES_CUSTOMIZER[] = {
+		'FDCPlutPistol',
+		'FDCTNTPistol',
+		'FDCDoom2Pistol',
+		'FDCAliensPistol',
+		'FDCJPCPPistol',
+		'FDCBTSXPistol',
+		'FDCAlienVendettaPistol',
+		'FDCHellboundPistol',
+		'FDCWhitemarePistol'
+	};
+
+	static const name BFG_TYPES[] = {
+		'FDPlutBFG9000',
+		'FDTNTBFG9000',
+		'FDDoom2BFG9000',
+		'FDAliensBFG9000',
+		'FDJPCPBFG9000',
+		'FDBTSXBFG9000',
+		'FDAlienVendettaBFG9000',
+		'FDHellboundBFG9000',
+		'FDWhitemareBFG9000'
+	};
+
+	static const name BFG_TYPES_CUSTOMIZER[] = {
+		'FDCPlutBFG9000',
+		'FDCTNTBFG9000',
+		'FDCDoom2BFG9000',
+		'FDCAliensBFG9000',
+		'FDCJPCPBFG9000',
+		'FDCBTSXBFG9000',
+		'FDCAlienVendettaBFG9000',
+		'FDCHellboundBFG9000',
+		'FDCWhitemareBFG9000'
+	};
+
+	static clearscope bool Customizer()
 	{
 		name n = 'FDCPlayer';
 		return (class<PlayerPawn>)(n) != null;
 	}
 
-	static FDX_Theme MainTheme(PlayerPawn pawn)
+	static clearscope FDX_Theme MainTheme(PlayerPawn pawn)
 	{
 		static const name TOKENS[] = {
 			'FDPlutoniaToken',
@@ -132,7 +180,15 @@ struct FDX_Common play
 		return 0;
 	}
 
-	static FDX_Theme ShotgunTheme(PlayerPawn pawn)
+	static clearscope FDX_Theme ChainsawTheme(PlayerPawn pawn)
+	{
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
+			return MainTheme(pawn);
+		else
+			return CVar.GetCVar("FDCChainsawToken").GetInt();
+	}
+
+	static clearscope FDX_Theme ShotgunTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -140,7 +196,7 @@ struct FDX_Common play
 			return CVar.GetCVar("FDCShotgunToken").GetInt();
 	}
 
-	static FDX_Theme SuperShotgunTheme(PlayerPawn pawn)
+	static clearscope FDX_Theme SuperShotgunTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -148,7 +204,7 @@ struct FDX_Common play
 			return CVar.GetCVar("FDCSuperShotgunToken").GetInt();
 	}
 
-	static FDX_Theme ChaingunTheme(PlayerPawn pawn)
+	static clearscope FDX_Theme ChaingunTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -156,7 +212,7 @@ struct FDX_Common play
 			return CVar.GetCVar("FDCChaingunToken").GetInt();
 	}
 
-	static FDX_Theme RocketLauncherTheme(PlayerPawn pawn)
+	static clearscope FDX_Theme RocketLauncherTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -164,7 +220,7 @@ struct FDX_Common play
 			return CVar.GetCVar("FDCRocketLauncherToken").GetInt();
 	}
 
-	static FDX_Theme PlasmaRifleTheme(PlayerPawn pawn)
+	static clearscope FDX_Theme PlasmaRifleTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -172,7 +228,7 @@ struct FDX_Common play
 			return CVar.GetCVar("FDCPlasmaRifleToken").GetInt();
 	}
 
-	static FDX_Theme BFGTheme(PlayerPawn pawn)
+	static clearscope FDX_Theme BFGTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -180,7 +236,7 @@ struct FDX_Common play
 			return CVar.GetCVar("FDCBFG9000Token").GetInt();
 	}
 
-	static class<Ammo> BulletType(PlayerPawn pawn)
+	static clearscope class<Ammo> BulletType(PlayerPawn pawn)
 	{
 		if (!Customizer())
 			return FDX_Common.BULLET_TYPES[MainTheme(pawn)];
@@ -188,7 +244,7 @@ struct FDX_Common play
 			return 'Clip';
 	}
 
-	static class<Ammo> ShellType(PlayerPawn pawn)
+	static clearscope class<Ammo> ShellType(PlayerPawn pawn)
 	{
 		if (!Customizer())
 			return FDX_Common.SHELL_TYPES[MainTheme(pawn)];
@@ -196,7 +252,7 @@ struct FDX_Common play
 			return 'Shell';
 	}
 
-	static class<Ammo> RocketAmmoType(PlayerPawn pawn)
+	static clearscope class<Ammo> RocketAmmoType(PlayerPawn pawn)
 	{
 		if (!Customizer())
 			return FDX_Common.ROCKETAMMO_TYPES[MainTheme(pawn)];
@@ -204,7 +260,7 @@ struct FDX_Common play
 			return 'RocketAmmo';
 	}
 
-	static class<Ammo> CellType(PlayerPawn pawn)
+	static clearscope class<Ammo> CellType(PlayerPawn pawn)
 	{
 		if (!Customizer())
 			return FDX_Common.CELL_TYPES[MainTheme(pawn)];
@@ -212,17 +268,17 @@ struct FDX_Common play
 			return 'Cell';
 	}
 
-	static class<Inventory> BFGCollectCounterType(PlayerPawn pawn)
+	static clearscope class<Inventory> BFGCollectCounterType(PlayerPawn pawn)
 	{
 		return FDX_Common.BFG_COLLECT_COUNTERS[BFGTheme(pawn)];
 	}
 
-	static class<Inventory> BFGChargeType(PlayerPawn pawn)
+	static clearscope class<Inventory> BFGChargeType(PlayerPawn pawn)
 	{
 		return FDX_Common.BFG_CHARGE_TYPES[BFGTheme(pawn)];
 	}
 
-	private static bool AmmoFull(Inventory item)
+	private static clearscope bool AmmoFull(Inventory item)
 	{
 		if (item == null)
 			return false;
@@ -230,22 +286,22 @@ struct FDX_Common play
 		return item.Amount >= item.MaxAmount;
 	}
 
-	static bool BulletsFull(PlayerPawn pawn)
+	static clearscope bool BulletsFull(PlayerPawn pawn)
 	{
 		return AmmoFull(pawn.FindInventory(BulletType(pawn)));
 	}
 
-	static bool ShellsFull(PlayerPawn pawn)
+	static clearscope bool ShellsFull(PlayerPawn pawn)
 	{
 		return AmmoFull(pawn.FindInventory(ShellType(pawn)));
 	}
 
-	static bool RocketAmmoFull(PlayerPawn pawn)
+	static clearscope bool RocketAmmoFull(PlayerPawn pawn)
 	{
 		return AmmoFull(pawn.FindInventory(RocketAmmoType(pawn)));
 	}
 
-	static bool CellsFull(PlayerPawn pawn)
+	static clearscope bool CellsFull(PlayerPawn pawn)
 	{
 		return AmmoFull(pawn.FindInventory(CellType(pawn)));
 	}
@@ -277,7 +333,7 @@ struct FDX_Common play
 			return cc.Amount >= cc.MaxAmount;
 	}
 
-	private static bool AmmoHasFreeCapacity(Inventory item, uint amount)
+	private static clearscope bool AmmoHasFreeCapacity(Inventory item, uint amount)
 	{
 		if (item == null)
 			return true;
@@ -285,22 +341,22 @@ struct FDX_Common play
 		return (item.MaxAmount - item.Amount) >= amount;
 	}
 
-	static bool HasFreeBulletCapacity(PlayerPawn pawn, uint amount)
+	static clearscope bool HasFreeBulletCapacity(PlayerPawn pawn, uint amount)
 	{
 		return AmmoHasFreeCapacity(pawn.FindInventory(BulletType(pawn)), amount);
 	}
 
-	static bool HasFreeShellCapacity(PlayerPawn pawn, uint amount)
+	static clearscope bool HasFreeShellCapacity(PlayerPawn pawn, uint amount)
 	{
 		return AmmoHasFreeCapacity(pawn.FindInventory(ShellType(pawn)), amount);
 	}
 
-	static bool HasFreeRocketAmmoCapacity(PlayerPawn pawn, uint amount)
+	static clearscope bool HasFreeRocketAmmoCapacity(PlayerPawn pawn, uint amount)
 	{
 		return AmmoHasFreeCapacity(pawn.FindInventory(RocketAmmoType(pawn)), amount);
 	}
 
-	static bool HasFreeCellCapacity(PlayerPawn pawn, uint amount)
+	static clearscope bool HasFreeCellCapacity(PlayerPawn pawn, uint amount)
 	{
 		return AmmoHasFreeCapacity(pawn.FindInventory(CellType(pawn)), amount);
 	}
@@ -330,6 +386,22 @@ struct FDX_Common play
 		let openCC = (cc.MaxAmount - cc.Amount) + openCharge;
 		return openCC > amount;
 	}
+
+	static clearscope class<Weapon> PistolType(PlayerPawn pawn)
+	{
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
+			return FDX_Common.PISTOL_TYPES[MainTheme(pawn)];
+		else
+			return FDX_Common.PISTOL_TYPES_CUSTOMIZER[BFGTheme(pawn)];
+	}
+
+	static clearscope class<Weapon> BFGType(PlayerPawn pawn)
+	{
+		if (!Customizer() || !(pawn is 'FDCPlayer'))
+			return FDX_Common.BFG_TYPES[MainTheme(pawn)];
+		else
+			return FDX_Common.BFG_TYPES_CUSTOMIZER[BFGTheme(pawn)];
+	}
 }
 
 enum FDX_Theme
@@ -356,4 +428,19 @@ enum FDX_DynVisual
 {
 	FDX_DYNVIS_ALL = 0,
 	FDX_DYNVIS_DYNAMIC = 1
+}
+
+enum FDX_BFGAmmoSystem
+{
+	FDX_BFGAMMO_ALLLARGE,
+	FDX_BFGAMMO_FROMCELL,
+	FDX_BFGAMMO_CELLSEPARATE,
+	FDX_BFGAMMO_LARGESEPARATE,
+	FDX_BFGAMMO_VANILLA,
+}
+
+enum FDX_PistolAmmoSystem
+{
+	FDX_PISTOLAMMO_INFINITE,
+	FDX_PISTOLAMMO_BULLET,
 }
