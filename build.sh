@@ -20,6 +20,9 @@ zip -0 -r ../out/nomadic-lifestyle.pk3 *
 cd ../drla-thrifty
 zip -0 -r ../out/drla-thrifty.pk3 *
 
+cd ../final-doomer-x
+zip -0 -r ../out/final-doomer-x.pk3 *
+
 cd ../rat-crosshair
 zip -0 -r ../out/rat-crosshair.pk3 *
 
