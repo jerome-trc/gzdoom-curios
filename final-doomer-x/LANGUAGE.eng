@@ -10,4 +10,11 @@ FDX_OPTCAT_GAMEPLAY = "\c[Green]Gameplay Options";
 FDX_OPTCAT_PERF = "\c[Green]Performance Options";
 
 FDX_OPTLBL_WASTEPROOFSMALL = "Waste-Proof Small Ammo Pickups";
+FDX_OPTTIP_WASTEPROOFSMALL =
+	"Forbid collecting small ammo pickups if there isn't enough space to \n"
+	"fit all of their contents (even if you have space for all but 1).";
+
 FDX_OPTLBL_PROJTRAILS = "Projectile Trails";
+FDX_OPTTIP_PROJTRAILS =
+	"Significantly reduces the trails of projectiles fired by \n"
+	"BTSXGuy's Plasma Vulcan to improve FPS.";
