@@ -12,13 +12,18 @@ Session.vim
 .idea
 *.iml
 .vscode
+.VSCodeCounter
 .project
 .favorites.json
 .settings/
 
-*.pk3
-*.pk3.bak
-
 # Miscellaneous ################################################################
 gzdoom-crash.log
 /temp
+
+*.[Ii][Ww][Aa][Dd]
+*.[Pp][Ww][Aa][Dd]
+*.[Ww][Aa][Dd]
+*.[Pp][Kk][37Ee]
+*.[Zz][Ii][Pp]
+*.7[Zz]
