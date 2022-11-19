@@ -30,9 +30,41 @@ class FDX_RocketAmmoPickup : FDX_AmmoPickup abstract
 	}
 }
 
+mixin class FDX_RocketAmmoPickupImpl
+{
+	private action void A_FDX_SpawnPickupVisuals(bool dynamic)
+	{
+		if (FDX_Common.Customizer())
+		{
+			let handler = FDX_EventHandler.Get();
+
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS_CUSTOMIZER[i],
+					flags: SXF_SETMASTER,
+					failChance: handler.RocketAmmoVisualSpawnFailChance(i)
+				);
+			}
+		}
+		else
+		{
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS[i],
+					flags: SXF_SETMASTER,
+					failChance: (dynamic ? CallACS("FDPlayerIn", i) : 0)
+				);
+			}
+		}
+	}
+}
+
 class FDX_RocketAmmo_ZS : FDX_RocketAmmoPickup
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_RocketAmmoPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDRocketPickupVisualPlutonia',
@@ -44,6 +76,18 @@ class FDX_RocketAmmo_ZS : FDX_RocketAmmoPickup
 		'FDRocketPickupVisualHellbound',
 		'FDRocketPickupVisualAlienVendetta',
 		'FDRocketPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCRocketPickupVisualPlutonia',
+		'FDCRocketPickupVisualTNT',
+		'FDCRocketPickupVisualDoom2',
+		'FDCRocketPickupVisualAliens',
+		'FDCRocketPickupVisualJPCP',
+		'FDCRocketPickupVisualBTSX',
+		'FDCRocketPickupVisualHellbound',
+		'FDCRocketPickupVisualAlienVendetta',
+		'FDCRocketPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {
@@ -100,6 +144,7 @@ class FDX_RocketAmmo_ZS : FDX_RocketAmmoPickup
 class FDX_RocketBox_ZS : FDX_RocketAmmoPickup
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_RocketAmmoPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDRocketBoxPickupVisualPlutonia',
@@ -111,6 +156,18 @@ class FDX_RocketBox_ZS : FDX_RocketAmmoPickup
 		'FDRocketBoxPickupVisualHellbound',
 		'FDRocketBoxPickupVisualAlienVendetta',
 		'FDRocketBoxPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCRocketBoxPickupVisualPlutonia',
+		'FDCRocketBoxPickupVisualTNT',
+		'FDCRocketBoxPickupVisualDoom2',
+		'FDCRocketBoxPickupVisualAliens',
+		'FDCRocketBoxPickupVisualJPCP',
+		'FDCRocketBoxPickupVisualBTSX',
+		'FDCRocketBoxPickupVisualHellbound',
+		'FDCRocketBoxPickupVisualAlienVendetta',
+		'FDCRocketBoxPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {

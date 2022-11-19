@@ -336,16 +336,4 @@ mixin class FDX_AmmoPickupImpl
 	{
 		return GIVE_AMOUNTS[RelevantTheme(toucher)];
 	}
-
-	protected action void A_FDX_SpawnPickupVisuals(bool dynamic)
-	{
-		for (uint i = 0; i < invoker.VISUAL_PICKUPS.Size(); i++)
-		{
-			A_SpawnItemEx(
-				invoker.VISUAL_PICKUPS[i],
-				flags: SXF_SETMASTER,
-				failChance: (dynamic ? CallACS("FDPlayerIn", i) : 0)
-			);
-		}
-	}
 }

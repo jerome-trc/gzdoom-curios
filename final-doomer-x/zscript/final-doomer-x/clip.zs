@@ -30,9 +30,41 @@ class FDX_ClipPickup : FDX_AmmoPickup abstract
 	}
 }
 
+mixin class FDX_ClipPickupImpl
+{
+	private action void A_FDX_SpawnPickupVisuals(bool dynamic)
+	{
+		if (FDX_Common.Customizer())
+		{
+			let handler = FDX_EventHandler.Get();
+
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS_CUSTOMIZER[i],
+					flags: SXF_SETMASTER,
+					failChance: handler.ClipVisualSpawnFailChance(i)
+				);
+			}
+		}
+		else
+		{
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS[i],
+					flags: SXF_SETMASTER,
+					failChance: (dynamic ? CallACS("FDPlayerIn", i) : 0)
+				);
+			}
+		}
+	}
+}
+
 class FDX_Clip_ZS : FDX_ClipPickup
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_ClipPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDClipPickupVisualPlutonia',
@@ -44,6 +76,18 @@ class FDX_Clip_ZS : FDX_ClipPickup
 		'FDClipPickupVisualHellbound',
 		'FDClipPickupVisualAlienVendetta',
 		'FDClipPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCClipPickupVisualPlutonia',
+		'FDCClipPickupVisualTNT',
+		'FDCClipPickupVisualDoom2',
+		'FDCClipPickupVisualAliens',
+		'FDCClipPickupVisualJPCP',
+		'FDCClipPickupVisualBTSX',
+		'FDCClipPickupVisualHellbound',
+		'FDCClipPickupVisualAlienVendetta',
+		'FDCClipPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {
@@ -100,6 +144,7 @@ class FDX_Clip_ZS : FDX_ClipPickup
 class FDX_ClipBox_ZS : FDX_ClipPickup
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_ClipPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDClipBoxPickupVisualPlutonia',
@@ -111,6 +156,18 @@ class FDX_ClipBox_ZS : FDX_ClipPickup
 		'FDClipBoxPickupVisualHellbound',
 		'FDClipBoxPickupVisualAlienVendetta',
 		'FDClipBoxPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCClipBoxPickupVisualPlutonia',
+		'FDCClipBoxPickupVisualTNT',
+		'FDCClipBoxPickupVisualDoom2',
+		'FDCClipBoxPickupVisualAliens',
+		'FDCClipBoxPickupVisualJPCP',
+		'FDCClipBoxPickupVisualBTSX',
+		'FDCClipBoxPickupVisualHellbound',
+		'FDCClipBoxPickupVisualAlienVendetta',
+		'FDCClipBoxPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {

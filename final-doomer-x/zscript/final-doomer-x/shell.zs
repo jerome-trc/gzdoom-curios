@@ -25,9 +25,41 @@ class FDX_ShellPickup : FDX_AmmoPickup abstract
 	}
 }
 
+mixin class FDX_ShellPickupImpl
+{
+	private action void A_FDX_SpawnPickupVisuals(bool dynamic)
+	{
+		if (FDX_Common.Customizer())
+		{
+			let handler = FDX_EventHandler.Get();
+
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS_CUSTOMIZER[i],
+					flags: SXF_SETMASTER,
+					failChance: handler.ShellVisualSpawnFailChance(i)
+				);
+			}
+		}
+		else
+		{
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS[i],
+					flags: SXF_SETMASTER,
+					failChance: (dynamic ? CallACS("FDPlayerIn", i) : 0)
+				);
+			}
+		}
+	}
+}
+
 class FDX_Shell_ZS : FDX_ShellPickup
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_ShellPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDShellPickupVisualPlutonia',
@@ -39,6 +71,18 @@ class FDX_Shell_ZS : FDX_ShellPickup
 		'FDShellPickupVisualHellbound',
 		'FDShellPickupVisualAlienVendetta',
 		'FDShellPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCShellPickupVisualPlutonia',
+		'FDCShellPickupVisualTNT',
+		'FDCShellPickupVisualDoom2',
+		'FDCShellPickupVisualAliens',
+		'FDCShellPickupVisualJPCP',
+		'FDCShellPickupVisualBTSX',
+		'FDCShellPickupVisualHellbound',
+		'FDCShellPickupVisualAlienVendetta',
+		'FDCShellPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {
@@ -100,6 +144,7 @@ class FDX_Shell_ZS : FDX_ShellPickup
 class FDX_ShellBox_ZS : FDX_ShellPickup
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_ShellPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDShellBoxPickupVisualPlutonia',
@@ -111,6 +156,18 @@ class FDX_ShellBox_ZS : FDX_ShellPickup
 		'FDShellBoxPickupVisualHellbound',
 		'FDShellBoxPickupVisualAlienVendetta',
 		'FDShellBoxPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCShellBoxPickupVisualPlutonia',
+		'FDCShellBoxPickupVisualTNT',
+		'FDCShellBoxPickupVisualDoom2',
+		'FDCShellBoxPickupVisualAliens',
+		'FDCShellBoxPickupVisualJPCP',
+		'FDCShellBoxPickupVisualBTSX',
+		'FDCShellBoxPickupVisualHellbound',
+		'FDCShellBoxPickupVisualAlienVendetta',
+		'FDCShellBoxPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {

@@ -8,6 +8,10 @@ class FDX_EventHandler : EventHandler
 			Destroy();
 			return;
 		}
+
+		for (uint i = 0; i < 5; i++)
+			for (uint ii = 0; ii < __FDX_THEME_COUNT__; ii++)
+				PlayerPresence[i][ii] = 256;
 	}
 
 	private static Inventory FindOrGive(PlayerPawn pawn, name type)
@@ -68,6 +72,17 @@ class FDX_EventHandler : EventHandler
 
 	final override void PlayerSpawned(PlayerEvent event)
 	{
+		let pawn = Players[event.PlayerNumber].MO;
+
+		if (pawn is 'FDCPlayer')
+		{
+			PlayerPresence[0][FDX_Common.ChaingunTheme(pawn)] = 0;
+			PlayerPresence[1][FDX_Common.SuperShotgunTheme(pawn)] = 0;
+			PlayerPresence[2][FDX_Common.RocketLauncherTheme(pawn)] = 0;
+			PlayerPresence[3][FDX_Common.PlasmaRifleTheme(pawn)] = 0;
+			PlayerPresence[4][FDX_Common.BFGTheme(pawn)] = 0;
+		}
+
 		FixFDCAmmoCapacities(event.PlayerNumber);
 	}
 
@@ -84,5 +99,43 @@ class FDX_EventHandler : EventHandler
 			event.Replacement = 'FDX_BTSXPlasmaProjectile';
 		else if (event.Replacee.GetClassName() == 'FDBTSXFancyPlasmaProjectile')
 			event.Replacement = 'FDX_BTSXFancyPlasmaProjectile';
+	}
+
+	// Non-Customizer players have an ACS script that tracks if any of them are
+	// present for the purposes of spawning item visuals conditionally.
+	// The Customizer offers no such facility, so we do it ourselves.
+	// Any given value is either 256 or 0.
+	// Remember that this targets a ZS version below 3.7.2 so array accesses
+	// are dimensionally backwards.
+	private int PlayerPresence[__FDX_THEME_COUNT__][5];
+
+	int ClipVisualSpawnFailChance(FDX_Theme theme) const
+	{
+		return PlayerPresence[0][theme];
+	}
+
+	int ShellVisualSpawnFailChance(FDX_Theme theme) const
+	{
+		return PlayerPresence[1][theme];
+	}
+
+	int RocketAmmoVisualSpawnFailChance(FDX_Theme theme) const
+	{
+		return PlayerPresence[2][theme];
+	}
+
+	int CellVisualSpawnFailChance(FDX_Theme theme) const
+	{
+		return PlayerPresence[3][theme];
+	}
+
+	int BFGAmmoVisualSpawnFailChance(FDX_Theme theme) const
+	{
+		return PlayerPresence[4][theme];
+	}
+
+	static clearscope FDX_EventHandler Get()
+	{
+		return FDX_EventHandler(EventHandler.Find('FDX_EventHandler'));
 	}
 }

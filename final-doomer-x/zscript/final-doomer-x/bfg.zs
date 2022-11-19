@@ -24,9 +24,41 @@ class FDX_BFGPickupBase : FDX_AmmoPickup abstract
 	}
 }
 
+mixin class FDX_BFGAmmoPickupImpl
+{
+	private action void A_FDX_SpawnPickupVisuals(bool dynamic)
+	{
+		if (FDX_Common.Customizer())
+		{
+			let handler = FDX_EventHandler.Get();
+
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS_CUSTOMIZER[i],
+					flags: SXF_SETMASTER,
+					failChance: handler.BFGAmmoVisualSpawnFailChance(i)
+				);
+			}
+		}
+		else
+		{
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS[i],
+					flags: SXF_SETMASTER,
+					failChance: (dynamic ? CallACS("FDPlayerIn", i) : 0)
+				);
+			}
+		}
+	}
+}
+
 class FDX_BFGPickup_ZS : FDX_BFGPickupBase
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_BFGAmmoPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDBFGAmmoPickupVisualPlutonia',
@@ -38,6 +70,18 @@ class FDX_BFGPickup_ZS : FDX_BFGPickupBase
 		'FDBFGAmmoPickupVisualHellbound',
 		'FDBFGAmmoPickupVisualAlienVendetta',
 		'FDBFGAmmoPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCBFGAmmoPickupVisualPlutonia',
+		'FDCBFGAmmoPickupVisualTNT',
+		'FDCBFGAmmoPickupVisualDoom2',
+		'FDCBFGAmmoPickupVisualAliens',
+		'FDCBFGAmmoPickupVisualJPCP',
+		'FDCBFGAmmoPickupVisualBTSX',
+		'FDCBFGAmmoPickupVisualHellbound',
+		'FDCBFGAmmoPickupVisualAlienVendetta',
+		'FDCBFGAmmoPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {
@@ -94,6 +138,7 @@ class FDX_BFGPickup_ZS : FDX_BFGPickupBase
 class FDX_BFGPickupBig_ZS : FDX_BFGPickupBase
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_BFGAmmoPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDBFGAmmoPickupBigVisualPlutonia',
@@ -105,6 +150,18 @@ class FDX_BFGPickupBig_ZS : FDX_BFGPickupBase
 		'FDBFGAmmoPickupBigVisualHellbound',
 		'FDBFGAmmoPickupBigVisualAlienVendetta',
 		'FDBFGAmmoPickupBigVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCBFGAmmoPickupBigVisualPlutonia',
+		'FDCBFGAmmoPickupBigVisualTNT',
+		'FDCBFGAmmoPickupBigVisualDoom2',
+		'FDCBFGAmmoPickupBigVisualAliens',
+		'FDCBFGAmmoPickupBigVisualJPCP',
+		'FDCBFGAmmoPickupBigVisualBTSX',
+		'FDCBFGAmmoPickupBigVisualHellbound',
+		'FDCBFGAmmoPickupBigVisualAlienVendetta',
+		'FDCBFGAmmoPickupBigVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {

@@ -27,12 +27,44 @@ class FDX_CellPickup : FDX_AmmoPickup abstract
 	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
 	{
 		return FDX_Common.PlasmaRifleTheme(pawn);
+	}	
+}
+
+mixin class FDX_CellPickupImpl
+{
+	private action void A_FDX_SpawnPickupVisuals(bool dynamic)
+	{
+		if (FDX_Common.Customizer())
+		{
+			let handler = FDX_EventHandler.Get();
+
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS_CUSTOMIZER[i],
+					flags: SXF_SETMASTER,
+					failChance: handler.CellVisualSpawnFailChance(i)
+				);
+			}
+		}
+		else
+		{
+			for (uint i = 0; i < invoker.VISUAL_PICKUPS.Size(); i++)
+			{
+				A_SpawnItemEx(
+					invoker.VISUAL_PICKUPS[i],
+					flags: SXF_SETMASTER,
+					failChance: (dynamic ? CallACS("FDPlayerIn", i) : 0)
+				);
+			}
+		}
 	}
 }
 
 class FDX_Cell_ZS : FDX_CellPickup
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_CellPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDCellPickupVisualPlutonia',
@@ -44,6 +76,18 @@ class FDX_Cell_ZS : FDX_CellPickup
 		'FDCellPickupVisualHellbound',
 		'FDCellPickupVisualAlienVendetta',
 		'FDCellPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCCellPickupVisualPlutonia',
+		'FDCCellPickupVisualTNT',
+		'FDCCellPickupVisualDoom2',
+		'FDCCellPickupVisualAliens',
+		'FDCCellPickupVisualJPCP',
+		'FDCCellPickupVisualBTSX',
+		'FDCCellPickupVisualHellbound',
+		'FDCCellPickupVisualAlienVendetta',
+		'FDCCellPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {
@@ -105,6 +149,7 @@ class FDX_Cell_ZS : FDX_CellPickup
 class FDX_CellPack_ZS :  FDX_CellPickup
 {
 	mixin FDX_AmmoPickupImpl;
+	mixin FDX_CellPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDCellPackPickupVisualPlutonia',
@@ -116,6 +161,18 @@ class FDX_CellPack_ZS :  FDX_CellPickup
 		'FDCellPackPickupVisualHellbound',
 		'FDCellPackPickupVisualAlienVendetta',
 		'FDCellPackPickupVisualWhitemare'
+	};
+
+	static const name VISUAL_PICKUPS_CUSTOMIZER[] = {
+		'FDCCellPackPickupVisualPlutonia',
+		'FDCCellPackPickupVisualTNT',
+		'FDCCellPackPickupVisualDoom2',
+		'FDCCellPackPickupVisualAliens',
+		'FDCCellPackPickupVisualJPCP',
+		'FDCCellPackPickupVisualBTSX',
+		'FDCCellPackPickupVisualHellbound',
+		'FDCCellPackPickupVisualAlienVendetta',
+		'FDCCellPackPickupVisualWhitemare'
 	};
 
 	static const uint GIVE_AMOUNTS[] = {
