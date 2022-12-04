@@ -248,6 +248,13 @@ class FDX_StatusBar : BaseStatusBar
 			DrawData.BFGChargeBarFramePos = (-84, -32);
 			DrawData.BFGChargeBarPos = (-82, -29);
 			break;
+		case int.MAX:
+			// When starting a new game or loading a save file, this function
+			// gets called not once but 4 times. No, it doesn't have anything
+			// to do with voodoo dolls. On some of those calls, the player will
+			// have the right pawn class but an empty inventory, causing `MainTheme`
+			// to fail and fall through. Why? Because this is GZDoom.
+			return;
 		default:
 			Object.ThrowAbortException(
 				"Player is not of a valid Final Doomer class."

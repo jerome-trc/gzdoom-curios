@@ -176,8 +176,7 @@ struct FDX_Common play
 					return j;
 		}
 
-		Object.ThrowAbortException("Player is not of a valid Final Doomer class.");
-		return 0;
+		return int.MAX;
 	}
 
 	static clearscope FDX_Theme ChainsawTheme(PlayerPawn pawn)
