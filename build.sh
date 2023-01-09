@@ -23,8 +23,8 @@ zip -0 -r ../out/drla-thrifty.pk3 *
 cd ../fd-patches
 zip -0 -r ../out/fd-patchpack.pk3 *
 
-cd ../rat-crosshair
-zip -0 -r ../out/rat-crosshair.pk3 *
+cd ../rat-crosshairs
+zip -0 -r ../out/rat-crosshairs.pk3 *
 
 cd ../rat-tools
 zip -0 -r ../out/rat-tools.pk3 *
