@@ -1,9 +1,9 @@
-class FDX_CellPickup : FDX_AmmoPickup abstract
+class FDPP_CellPickup : FDPP_AmmoPickup abstract
 {
 	Default
 	{
-		FDX_AmmoPickup.PickupSoundTemplate "items/%scell%s";
-		FDX_AmmoPickup.BFGAmmoMulti 50;
+		FDPP_AmmoPickup.PickupSoundTemplate "items/%scell%s";
+		FDPP_AmmoPickup.BFGAmmoMulti 50;
 	}
 
 	final override bool CanPickup(Actor toucher)
@@ -14,29 +14,29 @@ class FDX_CellPickup : FDX_AmmoPickup abstract
 		let pawn = PlayerPawn(toucher);
 
 		if (ForbidWaste(pawn))
-			return FDX_Common.HasFreeCellCapacity(pawn, CalcGiveAmount(pawn));
+			return FDPP_Common.HasFreeCellCapacity(pawn, CalcGiveAmount(pawn));
 		else
-			return !FDX_Common.CellsFull(PlayerPawn(toucher));
+			return !FDPP_Common.CellsFull(PlayerPawn(toucher));
 	}
 
 	final override class<Inventory> GivenAmmoType(PlayerPawn pawn) const
 	{
-		return FDX_Common.CellType(pawn);
+		return FDPP_Common.CellType(pawn);
 	}
 
-	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	final override FDPP_Theme RelevantTheme(PlayerPawn pawn) const
 	{
-		return FDX_Common.PlasmaRifleTheme(pawn);
+		return FDPP_Common.PlasmaRifleTheme(pawn);
 	}	
 }
 
-mixin class FDX_CellPickupImpl
+mixin class FDPP_CellPickupImpl
 {
-	private action void A_FDX_SpawnPickupVisuals(bool dynamic)
+	private action void A_FDPP_SpawnPickupVisuals(bool dynamic)
 	{
-		if (FDX_Common.Customizer())
+		if (FDPP_Common.Customizer())
 		{
-			let handler = FDX_EventHandler.Get();
+			let handler = FDPP_EventHandler.Get();
 
 			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
 			{
@@ -61,10 +61,10 @@ mixin class FDX_CellPickupImpl
 	}
 }
 
-class FDX_Cell_ZS : FDX_CellPickup
+class FDPP_Cell_ZS : FDPP_CellPickup
 {
-	mixin FDX_AmmoPickupImpl;
-	mixin FDX_CellPickupImpl;
+	mixin FDPP_AmmoPickupImpl;
+	mixin FDPP_CellPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDCellPickupVisualPlutonia',
@@ -119,22 +119,22 @@ class FDX_Cell_ZS : FDX_CellPickup
 
 	Default
 	{
-		FDX_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickup', 2;
+		FDPP_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickup', 2;
 	}
 
 	States
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 A_FDX_AmmoSpawn;
+		TNT1 A 0 A_FDPP_AmmoSpawn;
 		Goto Spawn.Visuals;
 	Spawn.Visuals:
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(false);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(false);
 		TNT1 A -1;
 		Stop;
 	Spawn.Dynamic:
 		TNT1 A 1;
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(true);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(true);
 		TNT1 A -1;
 		Stop;
 	Spawn.Generic:
@@ -146,10 +146,10 @@ class FDX_Cell_ZS : FDX_CellPickup
 	}
 }
 
-class FDX_CellPack_ZS :  FDX_CellPickup
+class FDPP_CellPack_ZS :  FDPP_CellPickup
 {
-	mixin FDX_AmmoPickupImpl;
-	mixin FDX_CellPickupImpl;
+	mixin FDPP_AmmoPickupImpl;
+	mixin FDPP_CellPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDCellPackPickupVisualPlutonia',
@@ -213,23 +213,23 @@ class FDX_CellPack_ZS :  FDX_CellPickup
 
 	Default
 	{
-		FDX_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickupBig', 2;
-		FDX_AmmoPickup.SmallCounterpart 'FDX_Cell_ZS';
+		FDPP_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickupBig', 2;
+		FDPP_AmmoPickup.SmallCounterpart 'FDPP_Cell_ZS';
 	}
 
 	States
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 A_FDX_AmmoSpawn;
+		TNT1 A 0 A_FDPP_AmmoSpawn;
 		Goto Spawn.Visuals;
 	Spawn.Visuals:
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(false);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(false);
 		TNT1 A -1;
 		Stop;
 	Spawn.Dynamic:
 		TNT1 A 1;
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(true);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(true);
 		TNT1 A -1;
 		Stop;
 	Spawn.Generic:

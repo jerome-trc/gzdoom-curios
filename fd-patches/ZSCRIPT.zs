@@ -1,0 +1,15 @@
+version "2.4"
+
+#include "zscript/fd-patches/common.zs"
+
+#include "zscript/fd-patches/ammo.zs"
+#include "zscript/fd-patches/bfg.zs"
+#include "zscript/fd-patches/cell.zs"
+#include "zscript/fd-patches/clip.zs"
+#include "zscript/fd-patches/event.zs"
+#include "zscript/fd-patches/health.zs"
+#include "zscript/fd-patches/projectiles.zs"
+#include "zscript/fd-patches/rocket.zs"
+#include "zscript/fd-patches/sbar.zs"
+#include "zscript/fd-patches/shell.zs"
+#include "zscript/fd-patches/tooltipoptions.zs"

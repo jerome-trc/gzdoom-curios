@@ -1,5 +1,5 @@
-server bool FDX_projtrails = true;
+server bool FDPP_projtrails = true;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-user bool FDX_wasteproof_small = false;
+user bool FDPP_wasteproof_small = false;

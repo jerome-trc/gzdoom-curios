@@ -1,9 +1,9 @@
-class FDX_RocketAmmoPickup : FDX_AmmoPickup abstract
+class FDPP_RocketAmmoPickup : FDPP_AmmoPickup abstract
 {
 	Default
 	{
-		FDX_AmmoPickup.PickupSoundTemplate "items/%srocket%s";
-		FDX_AmmoPickup.BFGAmmoMulti 40;
+		FDPP_AmmoPickup.PickupSoundTemplate "items/%srocket%s";
+		FDPP_AmmoPickup.BFGAmmoMulti 40;
 	}
 
 	final override bool CanPickup(Actor toucher)
@@ -14,29 +14,29 @@ class FDX_RocketAmmoPickup : FDX_AmmoPickup abstract
 		let pawn = PlayerPawn(toucher);
 
 		if (ForbidWaste(pawn))
-			return FDX_Common.HasFreeRocketAmmoCapacity(pawn, CalcGiveAmount(pawn));
+			return FDPP_Common.HasFreeRocketAmmoCapacity(pawn, CalcGiveAmount(pawn));
 		else
-			return !FDX_Common.RocketAmmoFull(PlayerPawn(toucher));
+			return !FDPP_Common.RocketAmmoFull(PlayerPawn(toucher));
 	}
 
 	final override class<Inventory> GivenAmmoType(PlayerPawn pawn) const
 	{
-		return FDX_Common.RocketAmmoType(pawn);
+		return FDPP_Common.RocketAmmoType(pawn);
 	}
 
-	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	final override FDPP_Theme RelevantTheme(PlayerPawn pawn) const
 	{
-		return FDX_Common.RocketLauncherTheme(pawn);
+		return FDPP_Common.RocketLauncherTheme(pawn);
 	}
 }
 
-mixin class FDX_RocketAmmoPickupImpl
+mixin class FDPP_RocketAmmoPickupImpl
 {
-	private action void A_FDX_SpawnPickupVisuals(bool dynamic)
+	private action void A_FDPP_SpawnPickupVisuals(bool dynamic)
 	{
-		if (FDX_Common.Customizer())
+		if (FDPP_Common.Customizer())
 		{
-			let handler = FDX_EventHandler.Get();
+			let handler = FDPP_EventHandler.Get();
 
 			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
 			{
@@ -61,10 +61,10 @@ mixin class FDX_RocketAmmoPickupImpl
 	}
 }
 
-class FDX_RocketAmmo_ZS : FDX_RocketAmmoPickup
+class FDPP_RocketAmmo_ZS : FDPP_RocketAmmoPickup
 {
-	mixin FDX_AmmoPickupImpl;
-	mixin FDX_RocketAmmoPickupImpl;
+	mixin FDPP_AmmoPickupImpl;
+	mixin FDPP_RocketAmmoPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDRocketPickupVisualPlutonia',
@@ -121,15 +121,15 @@ class FDX_RocketAmmo_ZS : FDX_RocketAmmoPickup
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 A_FDX_AmmoSpawn;
+		TNT1 A 0 A_FDPP_AmmoSpawn;
 		Goto Spawn.Visuals;
 	Spawn.Visuals:
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(false);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(false);
 		TNT1 A -1;
 		Stop;
 	Spawn.Dynamic:
 		TNT1 A 1;
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(true);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(true);
 		TNT1 A -1;
 		Stop;
 	Spawn.Generic:
@@ -141,10 +141,10 @@ class FDX_RocketAmmo_ZS : FDX_RocketAmmoPickup
 	}
 }
 
-class FDX_RocketBox_ZS : FDX_RocketAmmoPickup
+class FDPP_RocketBox_ZS : FDPP_RocketAmmoPickup
 {
-	mixin FDX_AmmoPickupImpl;
-	mixin FDX_RocketAmmoPickupImpl;
+	mixin FDPP_AmmoPickupImpl;
+	mixin FDPP_RocketAmmoPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDRocketBoxPickupVisualPlutonia',
@@ -208,23 +208,23 @@ class FDX_RocketBox_ZS : FDX_RocketAmmoPickup
 
 	Default
 	{
-		FDX_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickup', 4;
-		FDX_AmmoPickup.SmallCounterpart 'FDX_RocketAmmo_ZS';
+		FDPP_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickup', 4;
+		FDPP_AmmoPickup.SmallCounterpart 'FDPP_RocketAmmo_ZS';
 	}
 
 	States
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 A_FDX_AmmoSpawn;
+		TNT1 A 0 A_FDPP_AmmoSpawn;
 		Goto Spawn.Visuals;
 	Spawn.Visuals:
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(false);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(false);
 		TNT1 A -1;
 		Stop;
 	Spawn.Dynamic:
 		TNT1 A 1;
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(true);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(true);
 		TNT1 A -1;
 		Stop;
 	Spawn.Generic:

@@ -1,14 +1,14 @@
-class FDX_StatusBar : BaseStatusBar
+class FDPP_StatusBar : BaseStatusBar
 {
 	private CVar JPCPAltHUD;
 
-	private FDX_SBarDrawData DrawData;
+	private FDPP_SBarDrawData DrawData;
 
-	private FDX_Theme Theme;
-	private FDX_SBarPlayerTypes PlayerTypes;
+	private FDPP_Theme Theme;
+	private FDPP_SBarPlayerTypes PlayerTypes;
 
 	private Inventory CurrentArmor, CurrentAmmo;
-	private FDX_Interpolator
+	private FDPP_Interpolator
 		HealthInterpolator, ArmorInterpolator,
 		Ammo1Interpolator, HeatInterpolator,
 		BulletInterpolator, BulletCapacityInterpolator,
@@ -57,12 +57,12 @@ class FDX_StatusBar : BaseStatusBar
 			return;
 		}
 
-		Theme = FDX_Common.MainTheme(player.MO);
+		Theme = FDPP_Common.MainTheme(player.MO);
 		CurrentArmor = player.MO.FindInventory('BasicArmor');
 
 		switch (Theme)
 		{
-		case FDX_THEME_PLUTONIA:
+		case FDPP_THEME_PLUTONIA:
 			DrawData.SmallFont = CreateHUDFont('INDEXFONT_DOOM');
 			DrawData.BigFont = CreateHUDFont('HUDFONT_DOOM');
 			DrawData.HealthBackground = 'FLHEALTH';
@@ -81,7 +81,7 @@ class FDX_StatusBar : BaseStatusBar
 			DrawData.BFGChargeBarFramePos = (-84, -32);
 			DrawData.BFGChargeBarPos = (-82, -29);
 			break;
-		case FDX_THEME_TNT:
+		case FDPP_THEME_TNT:
 			DrawData.SmallFont = CreateHUDFont('INDEXFONT_DOOM');
 			DrawData.BigFont = CreateHUDFont('HUDFONT_DOOM');
 			DrawData.HealthBackground = 'FLHEALTH';
@@ -100,7 +100,7 @@ class FDX_StatusBar : BaseStatusBar
 			DrawData.BFGChargeBarFramePos = (-84, -32);
 			DrawData.BFGChargeBarPos = (-82, -29);
 			break;
-		case FDX_THEME_DOOM2:
+		case FDPP_THEME_DOOM2:
 			DrawData.SmallFont = CreateHUDFont('FDFONT_SDOOM2');
 			DrawData.BigFont = CreateHUDFont('FDFONT_DOOM2');
 			DrawData.PercentSign = 'D2PRCNT';
@@ -119,7 +119,7 @@ class FDX_StatusBar : BaseStatusBar
 			DrawData.BFGChargeBarFramePos = (-84, -32);
 			DrawData.BFGChargeBarPos = (-82, -29);
 			break;
-		case FDX_THEME_ANCIENTALIENS:
+		case FDPP_THEME_ANCIENTALIENS:
 			DrawData.SmallFont = CreateHUDFont('FDFONT_SALIENS');
 			DrawData.BigFont = CreateHUDFont('FDFONT_ALIENS');
 			DrawData.PercentSign = 'AAPRCNT';
@@ -138,7 +138,7 @@ class FDX_StatusBar : BaseStatusBar
 			DrawData.BFGChargeBarFramePos = (-84, -32);
 			DrawData.BFGChargeBarPos = (-82, -29);
 			break;
-		case FDX_THEME_JPCP:
+		case FDPP_THEME_JPCP:
 			JPCPAltHUD = CVar.GetCVar("FD_jpcphud", player);
 
 			DrawData.SmallFont = CreateHUDFont('FDFONT_SDOOM2');
@@ -173,7 +173,7 @@ class FDX_StatusBar : BaseStatusBar
 			}
 
 			break;
-		case FDX_THEME_BTSX:
+		case FDPP_THEME_BTSX:
 			DrawData.SmallFont = CreateHUDFont('FDFONT_SBTSX');
 			DrawData.BigFont = CreateHUDFont('FDFONT_BTSX');
 			DrawData.PercentSign = 'BTSXPRCT';
@@ -191,7 +191,7 @@ class FDX_StatusBar : BaseStatusBar
 			DrawData.InvSelPos = (-26, -86);
 			DrawData.BFGChargeBarPos = (-76, -24);
 			break;
-		case FDX_THEME_HELLBOUND:
+		case FDPP_THEME_HELLBOUND:
 			DrawData.SmallFont = CreateHUDFont('FDFONT_SDOOM2');
 			DrawData.BigFont = CreateHUDFont('FDFONT_HELLBOUND');
 			DrawData.PercentSign = 'HBPRCNT';
@@ -210,7 +210,7 @@ class FDX_StatusBar : BaseStatusBar
 			DrawData.BFGChargeBarFramePos = (-84, -32);
 			DrawData.BFGChargeBarPos = (-82, -29);
 			break;
-		case FDX_THEME_ALIENVENDETTA:
+		case FDPP_THEME_ALIENVENDETTA:
 			DrawData.SmallFont = CreateHUDFont('FDFONT_SALIENVENDETTA');
 			DrawData.BigFont = CreateHUDFont('FDFONT_ALIENVENDETTA');
 			DrawData.PercentSign = 'AVPRCNT';
@@ -229,7 +229,7 @@ class FDX_StatusBar : BaseStatusBar
 			DrawData.BFGChargeBarFramePos = (-81, -32);
 			DrawData.BFGChargeBarPos = (-79, -29);
 			break;
-		case FDX_THEME_WHITEMARE:
+		case FDPP_THEME_WHITEMARE:
 			DrawData.SmallFont = CreateHUDFont('FDFONT_SALIENVENDETTA');
 			DrawData.BigFont = CreateHUDFont('FDFONT_ALIENVENDETTA');
 			DrawData.PercentSign = 'AVPRCNT';
@@ -263,14 +263,14 @@ class FDX_StatusBar : BaseStatusBar
 
 		InvBarState.AmountFont = DrawData.SmallFont;
 
-		PlayerTypes.Bullet = FDX_Common.BulletType(player.MO);
-		PlayerTypes.Shell = FDX_Common.ShellType(player.MO);
-		PlayerTypes.RocketAmmo = FDX_Common.RocketAmmoType(player.MO);
-		PlayerTypes.Cell = FDX_Common.CellType(player.MO);
-		PlayerTypes.BFGCharge = FDX_Common.BFGChargeType(player.MO);
+		PlayerTypes.Bullet = FDPP_Common.BulletType(player.MO);
+		PlayerTypes.Shell = FDPP_Common.ShellType(player.MO);
+		PlayerTypes.RocketAmmo = FDPP_Common.RocketAmmoType(player.MO);
+		PlayerTypes.Cell = FDPP_Common.CellType(player.MO);
+		PlayerTypes.BFGCharge = FDPP_Common.BFGChargeType(player.MO);
 
-		PlayerTypes.Pistol = FDX_Common.PistolType(player.MO);
-		PlayerTypes.BFG = FDX_Common.BFGType(player.MO);
+		PlayerTypes.Pistol = FDPP_Common.PistolType(player.MO);
+		PlayerTypes.BFG = FDPP_Common.BFGType(player.MO);
 
 		name fdcWhitemareChainsaw_tn = 'FDCWhitemareChainsaw';
 		let fdcWhitemareChainsaw_t = (class<Weapon>)(fdcWhitemareChainsaw_tn);
@@ -301,7 +301,7 @@ class FDX_StatusBar : BaseStatusBar
 			if (i.GetClass() == PlayerTypes.Bullet)
 			{
 				if (CPlayer.ReadyWeapon is PlayerTypes.Pistol &&
-					CVar.GetCVar("FD_pistolammo", CPlayer).GetInt() == FDX_PISTOLAMMO_BULLET)
+					CVar.GetCVar("FD_pistolammo", CPlayer).GetInt() == FDPP_PISTOLAMMO_BULLET)
 				{
 					CurrentAmmo = i;
 				}
@@ -322,7 +322,7 @@ class FDX_StatusBar : BaseStatusBar
 			else if (i.GetClass() == PlayerTypes.Cell)
 			{
 				if (CPlayer.ReadyWeapon is PlayerTypes.BFG &&
-					FD_bfgammosystem == FDX_BFGAMMO_VANILLA)
+					FD_bfgammosystem == FDPP_BFGAMMO_VANILLA)
 				{
 					CurrentAmmo = i;
 				}
@@ -333,7 +333,7 @@ class FDX_StatusBar : BaseStatusBar
 			else if (i.GetClass() == PlayerTypes.BFGCharge)
 			{
 				if (CPlayer.ReadyWeapon is PlayerTypes.BFG &&
-					FD_bfgammosystem != FDX_BFGAMMO_VANILLA)
+					FD_bfgammosystem != FDPP_BFGAMMO_VANILLA)
 				{
 					CurrentAmmo = i;
 				}
@@ -351,7 +351,7 @@ class FDX_StatusBar : BaseStatusBar
 		else
 			Ammo1Interpolator.Update(0);
 
-		if (Theme == FDX_THEME_JPCP)
+		if (Theme == FDPP_THEME_JPCP)
 		{
 			if (JPCPAltHUD.GetBool())
 			{
@@ -407,7 +407,7 @@ class FDX_StatusBar : BaseStatusBar
 }
 
 // Common fullscreen drawing functions.
-extend class FDX_StatusBar
+extend class FDPP_StatusBar
 {
 	private void DrawFullscreenHUD_Health() const
 	{
@@ -477,22 +477,22 @@ extend class FDX_StatusBar
 		
 		if (CurrentAmmo is 'Clip')
 		{
-			let ammo_t = (class<Ammo>)(FDX_Common.BULLET_TYPES[Theme]);
+			let ammo_t = (class<Ammo>)(FDPP_Common.BULLET_TYPES[Theme]);
 			icon = GetDefaultByType(ammo_t).Icon;
 		}
 		else if (CurrentAmmo is 'Shell')
 		{
-			let ammo_t = (class<Ammo>)(FDX_Common.SHELL_TYPES[Theme]);
+			let ammo_t = (class<Ammo>)(FDPP_Common.SHELL_TYPES[Theme]);
 			icon = GetDefaultByType(ammo_t).Icon;
 		}
 		else if (CurrentAmmo is 'RocketAmmo')
 		{
-			let ammo_t = (class<Ammo>)(FDX_Common.ROCKETAMMO_TYPES[Theme]);
+			let ammo_t = (class<Ammo>)(FDPP_Common.ROCKETAMMO_TYPES[Theme]);
 			icon = GetDefaultByType(ammo_t).Icon;
 		}
 		else if (CurrentAmmo is 'Cell')
 		{
-			let ammo_t = (class<Ammo>)(FDX_Common.CELL_TYPES[Theme]);
+			let ammo_t = (class<Ammo>)(FDPP_Common.CELL_TYPES[Theme]);
 			icon = GetDefaultByType(ammo_t).Icon;
 		}
 
@@ -713,7 +713,7 @@ extend class FDX_StatusBar
 // Helpers /////////////////////////////////////////////////////////////////////
 
 // Copied from DynamicValueInterpolator because it has no reason to be a class.
-struct FDX_Interpolator
+struct FDPP_Interpolator
 {
 	int CurrentValue;
 	int MinChange;
@@ -749,7 +749,7 @@ struct FDX_Interpolator
 	}
 }
 
-struct FDX_SBarPlayerTypes
+struct FDPP_SBarPlayerTypes
 {
 	class<Inventory>
 		Bullet, Shell, RocketAmmo, Cell, BFGCharge,
@@ -757,7 +757,7 @@ struct FDX_SBarPlayerTypes
 		WhitemareChainsaw; // Adapts to Customizer
 }
 
-struct FDX_SBarDrawData
+struct FDPP_SBarDrawData
 {
 	HUDFont
 		BigFont, SmallFont;

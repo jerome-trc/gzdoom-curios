@@ -1,9 +1,9 @@
-class FDX_ShellPickup : FDX_AmmoPickup abstract
+class FDPP_ShellPickup : FDPP_AmmoPickup abstract
 {
 	Default
 	{
-		FDX_AmmoPickup.PickupSoundTemplate "items/%sshell%s";
-		FDX_AmmoPickup.BFGAmmoMulti 25;
+		FDPP_AmmoPickup.PickupSoundTemplate "items/%sshell%s";
+		FDPP_AmmoPickup.BFGAmmoMulti 25;
 	}
 
 	final override bool CanPickup(Actor toucher)
@@ -14,24 +14,24 @@ class FDX_ShellPickup : FDX_AmmoPickup abstract
 		let pawn = PlayerPawn(toucher);
 
 		if (ForbidWaste(pawn))
-			return FDX_Common.HasFreeShellCapacity(pawn, CalcGiveAmount(pawn));
+			return FDPP_Common.HasFreeShellCapacity(pawn, CalcGiveAmount(pawn));
 		else
-			return !FDX_Common.ShellsFull(PlayerPawn(toucher));
+			return !FDPP_Common.ShellsFull(PlayerPawn(toucher));
 	}
 
 	final override class<Inventory> GivenAmmoType(PlayerPawn pawn) const
 	{
-		return FDX_Common.ShellType(pawn);
+		return FDPP_Common.ShellType(pawn);
 	}
 }
 
-mixin class FDX_ShellPickupImpl
+mixin class FDPP_ShellPickupImpl
 {
-	private action void A_FDX_SpawnPickupVisuals(bool dynamic)
+	private action void A_FDPP_SpawnPickupVisuals(bool dynamic)
 	{
-		if (FDX_Common.Customizer())
+		if (FDPP_Common.Customizer())
 		{
-			let handler = FDX_EventHandler.Get();
+			let handler = FDPP_EventHandler.Get();
 
 			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
 			{
@@ -56,10 +56,10 @@ mixin class FDX_ShellPickupImpl
 	}
 }
 
-class FDX_Shell_ZS : FDX_ShellPickup
+class FDPP_Shell_ZS : FDPP_ShellPickup
 {
-	mixin FDX_AmmoPickupImpl;
-	mixin FDX_ShellPickupImpl;
+	mixin FDPP_AmmoPickupImpl;
+	mixin FDPP_ShellPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDShellPickupVisualPlutonia',
@@ -116,15 +116,15 @@ class FDX_Shell_ZS : FDX_ShellPickup
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 A_FDX_AmmoSpawn;
+		TNT1 A 0 A_FDPP_AmmoSpawn;
 		Goto Spawn.Visuals;
 	Spawn.Visuals:
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(false);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(false);
 		TNT1 A -1;
 		Stop;
 	Spawn.Dynamic:
 		TNT1 A 1;
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(true);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(true);
 		TNT1 A -1;
 		Stop;
 	Spawn.Generic:
@@ -135,16 +135,16 @@ class FDX_Shell_ZS : FDX_ShellPickup
 		Loop;
 	}
 
-	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	final override FDPP_Theme RelevantTheme(PlayerPawn pawn) const
 	{
-		return FDX_Common.ShotgunTheme(pawn);
+		return FDPP_Common.ShotgunTheme(pawn);
 	}
 }
 
-class FDX_ShellBox_ZS : FDX_ShellPickup
+class FDPP_ShellBox_ZS : FDPP_ShellPickup
 {
-	mixin FDX_AmmoPickupImpl;
-	mixin FDX_ShellPickupImpl;
+	mixin FDPP_AmmoPickupImpl;
+	mixin FDPP_ShellPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDShellBoxPickupVisualPlutonia',
@@ -208,23 +208,23 @@ class FDX_ShellBox_ZS : FDX_ShellPickup
 
 	Default
 	{
-		FDX_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickupBig', 1;
-		FDX_AmmoPickup.SmallCounterpart 'FDX_Shell_ZS';
+		FDPP_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickupBig', 1;
+		FDPP_AmmoPickup.SmallCounterpart 'FDPP_Shell_ZS';
 	}
 
 	States
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 A_FDX_AmmoSpawn;
+		TNT1 A 0 A_FDPP_AmmoSpawn;
 		Goto Spawn.Visuals;
 	Spawn.Visuals:
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(false);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(false);
 		TNT1 A -1;
 		Stop;
 	Spawn.Dynamic:
 		TNT1 A 1;
-		TNT1 A 0 A_FDX_SpawnPickupVisuals(true);
+		TNT1 A 0 A_FDPP_SpawnPickupVisuals(true);
 		TNT1 A -1;
 		Stop;
 	Spawn.Generic:
@@ -235,8 +235,8 @@ class FDX_ShellBox_ZS : FDX_ShellPickup
 		Loop;
 	}
 
-	final override FDX_Theme RelevantTheme(PlayerPawn pawn) const
+	final override FDPP_Theme RelevantTheme(PlayerPawn pawn) const
 	{
-		return FDX_Common.SuperShotgunTheme(pawn);
+		return FDPP_Common.SuperShotgunTheme(pawn);
 	}
 }

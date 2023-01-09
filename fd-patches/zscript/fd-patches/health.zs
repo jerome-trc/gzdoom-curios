@@ -1,4 +1,4 @@
-class FDX_Berserk : Berserk
+class FDPP_Berserk : Berserk
 {
 	Default
 	{

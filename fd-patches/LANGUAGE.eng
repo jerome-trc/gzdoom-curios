@@ -1,0 +1,20 @@
+// Commonwealth English localization.
+
+[eng default]
+
+FDPP_MODTITLE = "Final Doomer Patch Pack";
+
+FDPP_OPTTITLE = "\c[Yellow]Final Doomer Patch Pack:\c[White] Preferences";
+
+FDPP_OPTCAT_GAMEPLAY = "\c[Green]Gameplay Options";
+FDPP_OPTCAT_PERF = "\c[Green]Performance Options";
+
+FDPP_OPTLBL_WASTEPROOFSMALL = "Waste-Proof Small Ammo Pickups";
+FDPP_OPTTIP_WASTEPROOFSMALL =
+	"Forbid collecting small ammo pickups if there isn't enough space to \n"
+	"fit all of their contents (even if you have space for all but 1).";
+
+FDPP_OPTLBL_PROJTRAILS = "Projectile Trails";
+FDPP_OPTTIP_PROJTRAILS =
+	"Significantly reduces the trails of projectiles fired by \n"
+	"BTSXGuy's Plasma Vulcan to improve FPS.";

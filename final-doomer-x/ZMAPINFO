@@ -1,5 +1,0 @@
-GameInfo
-{
-	AddEventHandlers = "FDX_EventHandler"
-	StatusBarClass = "FDX_StatusBar"
-}
