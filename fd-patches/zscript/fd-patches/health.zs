@@ -6,13 +6,30 @@ class FDPP_Berserk : Berserk
 		Tag "Berserk";
 	}
 
+	States
+	{
+	Pickup:
+		Stop;
+	}
+
 	final override void DoPickupSpecial(Actor toucher)
 	{
 		super.DoPickupSpecial(toucher);
 
-		let leftover = 100 - (toucher.GetMaxHealth() - toucher.Health);
-		bool split = false;
+		let leftover = Clamp(
+			100 - (toucher.GetMaxHealth() - toucher.Health),
+			0,
+			100
+		);
+
 		toucher.GiveBody(100, 0);
+
+		if (!CVar.GetCVar("FDPP_wasteproof_berserk", toucher.Player).GetBool())
+		{
+			return;
+		}
+
+		bool split = false;
 
 		while (leftover >= 25)
 		{
@@ -37,19 +54,6 @@ class FDPP_Berserk : Berserk
 			);
 
 			leftover -= 10;
-			split = true;
-		}
-
-		while (leftover >= 1)
-		{
-			A_SpawnItemEx(
-				'FDHealthBonusPickup',
-				0.0, 0.0, 16.0,
-				FRandom(0.1, 2.0), 1.0, FRandom(0.1, 2.0),
-				FRandom(0.0, 360.0)
-			);
-
-			leftover -= 1;
 			split = true;
 		}
 

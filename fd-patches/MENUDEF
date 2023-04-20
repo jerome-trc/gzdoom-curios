@@ -16,6 +16,9 @@ OptionMenu "FDPP_Options"
 	Option "$FDPP_OPTLBL_WASTEPROOFSMALL", "FDPP_wasteproof_small", "OnOff"
 	FDPP_Tooltip "$FDPP_OPTTIP_WASTEPROOFSMALL"
 
+	Option "$FDPP_OPTLBL_WASTEPROOFBERSERK", "FDPP_wasteproof_berserk", "OnOff"
+	FDPP_Tooltip "$FDPP_OPTTIP_WASTEPROOFBERSERK"
+
 	StaticText ""
 	StaticText "$FDPP_OPTCAT_PERF"
 
