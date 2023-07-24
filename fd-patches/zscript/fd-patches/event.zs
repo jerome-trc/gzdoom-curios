@@ -34,12 +34,17 @@ class FDPP_EventHandler : EventHandler
 
 		PlayerInfo p = Players[playerNumber];
 
+		let cgt = FDPP_Common.ChaingunTheme(p.MO);
+
+		if (cgt == int.MAX)
+			return; // Probably in a TITLEMAP.
+
 		let iClip = Ammo(FindOrGive(p.MO, 'Clip'));
 		let iShell = Ammo(FindOrGive(p.MO, 'Shell'));
 		let iRocket = Ammo(FindOrGive(p.MO, 'RocketAmmo'));
 		let iCell = Ammo(FindOrGive(p.MO, 'Cell'));
 
-		let clip_tn = FDPP_Common.BULLET_TYPES[FDPP_Common.ChaingunTheme(p.MO)];
+		let clip_tn = FDPP_Common.BULLET_TYPES[cgt];
 		let shell_tn1 = FDPP_Common.SHELL_TYPES[FDPP_Common.ShotgunTheme(p.MO)];
 		let shell_tn2 = FDPP_Common.SHELL_TYPES[FDPP_Common.SuperShotgunTheme(p.MO)];
 		let rocket_tn = FDPP_Common.ROCKETAMMO_TYPES[FDPP_Common.RocketLauncherTheme(p.MO)];
