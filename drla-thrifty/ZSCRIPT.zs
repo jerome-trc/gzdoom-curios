@@ -231,8 +231,8 @@ class RLThriftyCellPack : ThriftyCellPack
 
 mixin class RLThriftyHealth
 {
-	meta int EnhancedHealth; // Added to normal health given
-	property EnhancedHealth: EnhancedHealth;
+	meta int ENHANCED_HEALTH; // Added to normal health given.
+	property EnhancedHealth: ENHANCED_HEALTH;
 
 	Default
 	{
@@ -262,7 +262,7 @@ mixin class RLThriftyHealth
 				i is 'RLMedicalPowerArmorToken' ||
 				i is 'RLOModMedicalArmorToken')
 			{
-				toucher.GiveBody(13);
+				toucher.GiveBody(self.ENHANCED_HEALTH);
 				return;
 			}
 		}
@@ -298,5 +298,5 @@ class RLThriftyMedikit : ThriftyMedikit
 		Inventory.PickupMessage "Picked up a medikit.";
 		ThriftyHealth.PickupOpenMsg "Opened a medikit.";
 		RLThriftyMedikit.EnhancedHealth 13;
-	}	
+	}
 }
