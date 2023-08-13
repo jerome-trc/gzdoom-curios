@@ -1,16 +1,3 @@
-addkeysection "$DJ_MODTITLE" DiskJockey
-
-addmenukey "$DJ_KB_START" "netevent diskjockey 0"
-defaultbind KP5 "netevent diskjockey 0"
-addmenukey "$DJ_KB_NEXT" "netevent diskjockey 1"
-defaultbind KP6 "netevent diskjockey 1"
-addmenukey "$DJ_KB_PREV" "netevent diskjockey 2"
-defaultbind KP4 "netevent diskjockey 2"
-addmenukey "$DJ_JB_LEVEL" "netevent diskjockey 3"
-defaultbind KP0 "netevent diskjockey 3"
-addmenukey "$DJ_KB_RANDOM" "netevent diskjockey 4"
-defaultbind KP. "netevent diskjockey 4"
-addmenukey "$DJ_KB_VOLUP" "netevent diskjockey 5"
-defaultbind KP8 "netevent diskjockey 5"
-addmenukey "$DJ_KB_VOLDOWN" "netevent diskjockey 6"
-defaultbind KP2 "netevent diskjockey 6"
+addkeysection "$RCDJ_MODTITLE" rcdj_Section
+addmenukey "$RCDJ_KB_OPENMENU" "event rcdj_console 0"
+defaultbind KP. "event rcdj_console 0"

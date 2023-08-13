@@ -1,0 +1,5 @@
+OptionMenu "rcdj_Menu"
+{
+	class rcdj_Menu
+	title "$RCDJ_MODTITLE"
+}

@@ -1,16 +1,7 @@
 [eng default]
 
-DJ_MODTITLE = "Disk Jockey";
-
-DJ_NOWPLAYING = "\c[Green]Now playing:\c[White] %s";
-DJ_SONGTOSTR = "%s - %s";
+RCDJ_MODTITLE = "Disk Jockey";
 
 // Keybinds ////////////////////////////////////////////////////////////////////
 
-DJ_KB_START = "Start First Playlist";
-DJ_KB_VOLUP = "Volume Up 10%";
-DJ_KB_VOLDOWN = "Volume Down 10%";
-DJ_KB_NEXT = "Next Song on Playlist";
-DJ_KB_PREV = "Previous Song on Playlist";
-DJ_JB_LEVEL = "Play Level's Default Music";
-DJ_KB_RANDOM = "Play Random from Current Playlist";
+RCDJ_KB_OPENMENU = "Open Menu";

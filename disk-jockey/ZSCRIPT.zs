@@ -1,265 +1,112 @@
 version "2.4"
 
-class DJ_SongInfo
+class rcdj_EventHandler : StaticEventHandler
 {
-	int Lump;
-	// All un-localized.
-	string Title, Artist, Origin;
+	array<rcdj_SongInfo> songs;
 
-	string ToString() const
+	enum EventArg0 : int
 	{
-		return String.Format(
-			StringTable.Localize("$DJ_SONGTOSTR"),
-			StringTable.Localize(Artist),
-			StringTable.Localize(Title)
-		);
+		EVA0_OPENMENU = 0
 	}
-}
 
-class DJ_Playlist
-{
-	int Lump;
-	// Un-localized.
-	string Title;
-	Array<DJ_SongInfo> Songs;
-}
+	final override void ConsoleProcess(ConsoleEvent event)
+	{
+		if (!(event.name ~== "rcdj_console"))
+			return;
 
-class DJ_EventHandler : StaticEventHandler
-{
-	private Array<DJ_Playlist> Playlists;
-	private int CurrentPlaylist, CurrentSong;
-	private float MusicVolume;
+		switch (event.args[0])
+		{
+		case EVA0_OPENMENU:
+		{
+			if (Menu.GetCurrentMenu() is 'rcdj_Menu')
+				break;
 
-	const LMPNAME_PLAYLIST = "PLAYLIST";
+			Menu.SetMenu('rcdj_Menu');
+			break;
+		}
+		default: break;
+		}
+	}
 
 	final override void OnRegister()
 	{
-		Reset();
-
-		int lump = -1, next = 0;
-
-		do
+		for (uint i = 0; i < Wads.GetNumLumps(); ++i)
 		{
-			lump = Wads.FindLump(LMPNAME_PLAYLIST, next, Wads.GLOBALNAMESPACE);
+			if (Wads.GetLumpNamespace(i) != Wads.NS_MUSIC)
+				continue;
 
-			if (lump == -1)
-				break;
+			let fullName = Wads.GetLumpFullName(i);
+			fullName.Replace("music/", "");
+			let songInfo = new('rcdj_SongInfo');
+			songInfo.label = fullName;
+			songInfo.lump = i;
+			self.songs.Push(songInfo);
+		}
+	}
+}
 
-			next = lump + 1;
+class rcdj_Menu : OptionMenu
+{
+	final override void Init(Menu parent, OptionMenuDescriptor desc)
+	{
+		super.Init(parent, desc);
+		let global = rcdj_EventHandler(StaticEventHandler.Find('rcdj_EventHandler'));
 
-			let content = Wads.ReadLump(lump);
-			Array<string> lines;
-			content.Split(lines, "\n", TOK_SKIPEMPTY);
-
-			if (lines.Size() < 1)
-				return;
-
-			let playlist = new('DJ_Playlist');
-
-			playlist.Lump = lump;
-			playlist.Title = String.Format("$DJ_PLAYLIST_%s_TITLE", lines[0]);
-
-			for (uint i = 1; i < lines.Size(); i++)
-			{
-				if (lines[i] == "")
-					continue;
-
-				let muslump = Wads.CheckNumForName(
-					lines[i],
-					Wads.NS_MUSIC
-				);
-
-				if (muslump == -1)
-				{
-					Console.Printf(
-						"Failed to find music lump by name: %s",
-						lines[i]
-					);
-					continue;
-				}
-
-				let song = new('DJ_SongInfo');
-
-				song.Lump = muslump;
-				song.Title = String.Format("$DJ_SONG_%s_TITLE", lines[i]);
-				song.Artist = String.Format("$DJ_SONG_%s_ARTIST", lines[i]);
-				song.Origin = String.Format("$DJ_SONG_%s_ORIGIN", lines[i]);
-
-				playlist.Songs.Push(song);
-			}
-
-			Playlists.Push(playlist);
-		} while (true);
+		for (int i = 0; i < global.songs.Size(); ++i)
+		{
+			let song = global.songs[i];
+			let omi = new('rcdj_OptionMenuItem');
+			omi.Init(song.lump, song.label, Font.CR_WHITE);
+			self.mDesc.mItems.push(omi);
+		}
 	}
 
-	private void ChangeMusic(DJ_SongInfo song) const
+	final override void OnDestroy()
 	{
-		let lmpname = Wads.GetLumpFullName(song.Lump);
+		super.OnDestroy();
+		self.mDesc.mItems.Clear();
+	}
+}
+
+class rcdj_OptionMenuItem : OptionMenuItem
+{
+	int lump, fontColor;
+	string songName;
+
+	rcdj_OptionMenuItem Init(
+		int lump,
+		string label,
+		int fontColor
+	)
+	{
+		super.Init(label, "", true);
+		self.lump = lump;
+		self.fontColor = fontColor;
+		return self;
+	}
+
+	override int Draw(OptionMenuDescriptor d, int y, int indent, bool selected)
+	{
+		self.DrawLabel(indent, y, self.fontColor);
+		// self.DrawValue(indent, y, self.fontColor, self.songName);
+		return indent;
+	}
+
+	final override bool MenuEvent(int key, bool fromController)
+	{
+		if (key != Menu.MKEY_ENTER)
+			return super.MenuEvent(key, fromController);
+
+		let lmpname = Wads.GetLumpFullName(self.lump);
 		S_ChangeMusic(lmpname);
-
-		Console.Printf(
-			String.Format(
-				StringTable.Localize("$DJ_NOWPLAYING"),
-				song.ToString()
-			)
-		);
+		Menu.MenuSound("menu/choose");
+		Menu.GetCurrentMenu().Close();
+		return true;
 	}
+}
 
-	enum EventIndex
-	{
-		EVNDX_START,
-		EVNDX_NEXT,
-		EVNDX_PREV,
-		EVNDX_LEVEL,
-		EVNDX_RANDOM,
-		EVNDX_VOLUP,
-		EVNDX_VOLDOWN, // 6
-	}
-
-	final override void NetworkProcess(ConsoleEvent event)
-	{
-		NetEvent_General(event);
-		NetEvent_Play(event);		
-	}
-
-	private void NetEvent_General(ConsoleEvent event)
-	{
-		if (!(event.Name ~== "diskjockey"))
-			return;
-
-		switch (event.Args[0])
-		{
-		case EVNDX_START:
-			{
-				if (Playlists.Size() < 1)
-				{
-					Console.Printf("No playlists to start.");
-					return;
-				}
-
-				if (Playlists[0].Songs.Size() < 1)
-				{
-					Console.Printf("First playlist has no songs.");
-					return;
-				}
-
-				CurrentPlaylist = 0;
-				CurrentSong = 0;
-				ChangeMusic(Playlists[CurrentPlaylist].Songs[CurrentSong]);
-			}
-			break;
-		case EVNDX_NEXT:
-			{
-				if (CurrentPlaylist < 0)
-					return;
-
-				let pl = Playlists[CurrentPlaylist];
-
-				if (++CurrentSong >= pl.Songs.Size())
-					CurrentSong = 0;
-
-				ChangeMusic(pl.Songs[CurrentSong]);
-			}
-			break;
-		case EVNDX_PREV:
-			{
-				if (CurrentPlaylist < 0)
-					return;
-
-				let pl = Playlists[CurrentPlaylist];
-
-				if (--CurrentSong < 0)
-					CurrentSong = pl.Songs.Size() - 1;
-
-				ChangeMusic(pl.Songs[CurrentSong]);
-			}
-			break;
-		case EVNDX_LEVEL:
-			{
-				CurrentPlaylist = -1;
-				CurrentSong = -1;
-				S_ChangeMusic("*");
-
-				Console.Printf(
-					String.Format(
-						StringTable.Localize("$DJ_NOWPLAYING"),
-						Level.Music
-					)
-				);
-			}
-			break;
-		case EVNDX_RANDOM:
-			{
-				if (CurrentPlaylist < 0)
-					return;
-
-				let pl = Playlists[CurrentPlaylist];
-				CurrentSong = Random[DiskJockey](0, pl.Songs.Size() - 1);
-				ChangeMusic(pl.Songs[CurrentSong]);
-			}
-			break;
-		case EVNDX_VOLUP:
-			{
-				MusicVolume = Min(MusicVolume + 0.1, 1.0);
-				SetMusicVolume(MusicVolume);
-			}
-			break;
-		case EVNDX_VOLDOWN:
-			{
-				MusicVolume = Max(MusicVolume - 0.1, 0.0);
-				SetMusicVolume(MusicVolume);
-			}
-			break;
-		default:
-			Console.Printf(
-				"Disk Jockey received illegal event argument: %d",
-				event.Args[0]
-			);
-			return;
-		}
-	}
-
-	private void NetEvent_Play(ConsoleEvent event)
-	{
-		if (!(event.Name.Left(7) ~== "dj_play"))
-			return;
-
-		Array<string> tokens;
-		event.Name.Split(tokens, ":");
-
-		if (tokens.Size() < 2)
-			return;
-
-		for (uint i = 0; i < Playlists.Size(); i++)
-		{
-			let pl = Playlists[i];
-
-			for (uint j = 0; j < pl.Songs.Size(); j++)
-			{
-				let song = pl.Songs[j];
-
-				if (!(Wads.GetLumpName(song.Lump) ~== tokens[1]))
-					continue;
-
-				CurrentPlaylist = i;
-				ChangeMusic(song);
-				return;
-			}
-		}
-
-		Console.Printf(
-			"Failed to find song by lump name: %s",
-			tokens[1]
-		);
-	}
-
-	final override void WorldLoaded(WorldEvent _) { Reset(); }
-	final override void WorldUnloaded(WorldEvent _) { Reset(); }
-
-	private void Reset()
-	{
-		MusicVolume = 1.0;
-		CurrentPlaylist = -1;
-		CurrentSong = -1;
-	}
+class rcdj_SongInfo
+{
+	int lump;
+	string label;
 }

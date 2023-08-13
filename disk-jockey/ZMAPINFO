@@ -1,1 +1,1 @@
-GameInfo { AddEventHandlers = "DJ_EventHandler" }
+GameInfo { AddEventHandlers = "rcdj_EventHandler" }
