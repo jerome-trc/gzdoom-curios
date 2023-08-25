@@ -37,8 +37,23 @@ class ZSBENCH_EventHandler : EventHandler
 			}
 		}
 
+		let sieve = 0;
+
+		for (uint i = 0; i < SAMPLE_SIZE; i++)
+		{
+			let start = MSTime();
+			let n = Sieve(10);
+			sieve += MSTime() - start;
+
+			if (n != 123814)
+			{
+				ThrowAbortException("???");
+			}
+		}
+
 		Console.Printf("Fibonacci recursive: %dms", fibr / SAMPLE_SIZE);
 		Console.Printf("Fibonacci iterative: %dms", fibi / SAMPLE_SIZE);
+		Console.Printf("Sieve of Eratosthenes: %dms", sieve / SAMPLE_SIZE);
 	}
 
 	private clearscope int FibRecur(int n)
@@ -63,5 +78,36 @@ class ZSBENCH_EventHandler : EventHandler
 		}
 
 		return cur;
+	}
+
+	const SIEVE_SIZE = 819000;
+
+	private clearscope int Sieve(int arg)
+	{
+		int i, k, prime, count, n;
+		bool flags[SIEVE_SIZE];
+
+		for (n = 0; n < arg; n++)
+		{
+			count = 0;
+
+			for (i = 0; i < SIEVE_SIZE; i++)
+				flags[i] = true;
+
+			for (i = 0; i < SIEVE_SIZE; i++)
+			{
+				if (flags[i])
+				{
+					prime = i + i + 3;
+
+					for (k = i + prime; k < SIEVE_SIZE; k += prime)
+						flags[k] = false;
+
+					count++;
+				}
+			}
+		}
+
+		return count;
 	}
 }

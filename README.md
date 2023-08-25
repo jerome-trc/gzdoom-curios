@@ -15,3 +15,4 @@ All source code within, unless otherwise specified, is provided under the [MIT L
 - `fd-patches` - the Final Doomer Patch Pack - is an extension for [Final Doomer](https://forum.zdoom.org/viewtopic.php?t=55061) by Sgt. Shivers and Yholl which adds minor fixes, improvements, and quality-of-life changes. This includes alterations to the [Customizer add-on](https://forum.zdoom.org/viewtopic.php?f=43&t=65622) by cyber_cool.
 - `rat-crosshair` is a pair of minimalist custom crosshairs which meet my specific preferences: a hollow T-shape with fading ends, and a single-pixel-thickness upwards chevron.
 - `rat-tools` is where I put any development/debugging utilities that don't belong anywhere else.
+- `zsbench` is a set of naive ZScript microbenchmarks.
