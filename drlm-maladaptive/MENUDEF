@@ -1,0 +1,22 @@
+AddOptionMenu "OptionsMenu"
+{
+	SubMenu "$RLMAL_MODTITLE", "rlmal_Options"
+}
+
+OptionMenu "rlmal_Options"
+{
+	class rlmal_TooltipOptionMenu
+	rlmal_TooltipGeometry 0.0, 0.0, 0.15, 0.1, 0.1, 0.5
+
+	Title "$RLMAL_MODTITLE"
+	StaticText ""
+
+	Slider "$RLMAL_OPTLBL_UVWEIGHT", "rlmal_uvWeight", 0, 255, 1, 0
+	rlmal_Tooltip "$RLMAL_OPTTIP_UVWEIGHT"
+	Slider "$RLMAL_OPTLBL_NIGHTMAREWEIGHT", "rlmal_nmWeight", 0, 255, 1, 0
+	rlmal_Tooltip "$RLMAL_OPTTIP_NIGHTMAREWEIGHT"
+	Slider "$RLMAL_OPTLBL_CYBERNETICWEIGHT", "rlmal_cyberWeight", 0, 255, 1, 0
+	rlmal_Tooltip "$RLMAL_OPTTIP_CYBERNETICWEIGHT"
+	Slider "$RLMAL_OPTLBL_ARMAGEDDONWEIGHT", "rlmal_armaWeight", 0, 255, 1, 0
+	rlmal_Tooltip "$RLMAL_OPTTIP_ARMAGEDDONWEIGHT"
+}

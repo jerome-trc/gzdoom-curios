@@ -1,0 +1,17 @@
+// Commonwealth English localization.
+
+[eng default]
+
+RLMAL_MODTITLE = "DoomRL Monsters: Maladaptive";
+
+RLMAL_OPTLBL_UVWEIGHT = "Weighting: Ultraviolence";
+RLMAL_OPTTIP_UVWEIGHT = "Default is 255.";
+
+RLMAL_OPTLBL_NIGHTMAREWEIGHT = "Weighting: Nightmare";
+RLMAL_OPTTIP_NIGHTMAREWEIGHT = "Default is 10.";
+
+RLMAL_OPTLBL_CYBERNETICWEIGHT = "Weighting: Cybernetic";
+RLMAL_OPTTIP_CYBERNETICWEIGHT = "Default is 10.";
+
+RLMAL_OPTLBL_ARMAGEDDONWEIGHT = "Weighting: Armageddon";
+RLMAL_OPTTIP_ARMAGEDDONWEIGHT = "Default is 1.";

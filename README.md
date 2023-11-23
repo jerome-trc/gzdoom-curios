@@ -12,6 +12,7 @@ All source code within, unless otherwise specified, is provided under the [MIT L
 - `disk-jockey` is a maximally-simple bring-your-own-music player.
 - `drla-bonsai` is a collection of new upgrades for ToxicFrog's [Gun Bonsai](https://forum.zdoom.org/viewtopic.php?t=76080) and Yholl's [DoomRL Arsenal](https://forum.zdoom.org/viewtopic.php?f=43&t=37044).
 - `drla-thrifty` is a mod that provides compatibility between the [Thrifty Health/Ammo mods](https://forum.zdoom.org/viewtopic.php?t=71406) by zrrion the insect and DoomRL Arsenal.
+- `drlm-maladaptive` is a mod that changes the DoomRL Monster Pack's "Adaptive" difficulty to assign one constant weight to each monster grade, rather than adjusting the weighting with levels completed.
 - `fd-patches` - the Final Doomer Patch Pack - is an extension for [Final Doomer](https://forum.zdoom.org/viewtopic.php?t=55061) by Sgt. Shivers and Yholl which adds minor fixes, improvements, and quality-of-life changes. This includes alterations to the [Customizer add-on](https://forum.zdoom.org/viewtopic.php?f=43&t=65622) by cyber_cool.
 - `rat-crosshair` is a pair of minimalist custom crosshairs which meet my specific preferences: a hollow T-shape with fading ends, and a single-pixel-thickness upwards chevron.
 - `rat-tools` is where I put any development/debugging utilities that don't belong anywhere else.

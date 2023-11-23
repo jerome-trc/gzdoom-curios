@@ -1,0 +1,4 @@
+server int rlmal_uvWeight = 255;
+server int rlmal_nmWeight = 10;
+server int rlmal_cyberWeight = 10;
+server int rlmal_armaWeight = 1;
