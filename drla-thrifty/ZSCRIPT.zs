@@ -1,53 +1,63 @@
 version "2.4"
 
-class RLThriftyReplacer : EventHandler
+class RLThriftyReplacer : StaticEventHandler
 {
-	private Array<class<Actor> > ToReplace, Replacements;
+	private Dictionary replaceMap;
 
 	final override void OnRegister()
 	{
-		name toReplace_tns[] = {
-			'RLClip',
-			'RLClipBox',
-			'RLShell',
-			'RLShellBox',
-			'RLRocketAmmo',
-			'RLRocketBox',
-			'RLCell',
-			'RLCellPack',
-			'RLStimpack',
-			'RLMedikit'
-		};
+		self.replaceMap = Dictionary.Create();
 
-		class<Actor> replacement_tns[] = {
-			'RLThriftyClip',
-			'RLThriftyClipBox',
-			'RLThriftyShell',
-			'RLThriftyShellBox',
-			'RLThriftyRocketAmmo',
-			'RLThriftyRocketBox',
-			'RLThriftyCell',
-			'RLThriftyCellPack',
-			'RLThriftyStimpack',
-			'RLThriftyMedikit'
-		};
+		self.replaceMap.Insert("Clip", "RLThriftyClip");
+		self.replaceMap.Insert("RLClip", "RLThriftyClip");
+		self.replaceMap.Insert("ThriftyClip", "RLThriftyClip");
 
-		for (uint i = 0; i < toReplace_tns.Size(); i++)
-		{
-			ToReplace.Push((class<Actor>)(toReplace_tns[i]));
-			Replacements.Push(replacement_tns[i]);
-		}
+		self.replaceMap.Insert("ClipBox", "RLThriftyClipBox");
+		self.replaceMap.Insert("RLClipBox", "RLThriftyClipBox");
+		self.replaceMap.Insert("ThriftyClipBox", "RLThriftyClipBox");
+
+		self.replaceMap.Insert("Shell", "RLThriftyShell");
+		self.replaceMap.Insert("RLShell", "RLThriftyShell");
+		self.replaceMap.Insert("ThriftyShell", "RLThriftyShell");
+
+		self.replaceMap.Insert("ShellBox", "RLThriftyShellBox");
+		self.replaceMap.Insert("RLShellBox", "RLThriftyShellBox");
+		self.replaceMap.Insert("ThriftyShellBox", "RLThriftyShellBox");
+
+		self.replaceMap.Insert("RocketAmmo", "RLThriftyRocketAmmo");
+		self.replaceMap.Insert("RLRocketAmmo", "RLThriftyRocketAmmo");
+		self.replaceMap.Insert("ThriftyRocketAmmo", "RLThriftyRocketAmmo");
+
+		self.replaceMap.Insert("RocketBox", "RLThriftyRocketBox");
+		self.replaceMap.Insert("RLRocketBox", "RLThriftyRocketBox");
+		self.replaceMap.Insert("ThriftyRocketBox", "RLThriftyRocketBox");
+
+		self.replaceMap.Insert("Cell", "RLThriftyCell");
+		self.replaceMap.Insert("RLCell", "RLThriftyCell");
+		self.replaceMap.Insert("ThriftyCell", "RLThriftyCell");
+
+		self.replaceMap.Insert("CellPack", "RLThriftyCellPack");
+		self.replaceMap.Insert("RLCellPack", "RLThriftyCellPack");
+		self.replaceMap.Insert("ThriftyCellPack", "RLThriftyCellPack");
+
+		self.replaceMap.Insert("StimPack", "RLThriftyStimPack");
+		self.replaceMap.Insert("RLStimPack", "RLThriftyStimPack");
+		self.replaceMap.Insert("ThriftyStimPack", "RLThriftyStimPack");
+
+		self.replaceMap.Insert("Medikit", "RLThriftyMedikit");
+		self.replaceMap.Insert("RLMedikit", "RLThriftyMedikit");
+		self.replaceMap.Insert("ThriftyMedikit", "RLThriftyMedikit");
 	}
 
+	/// Use this event instead of `replaces` qualifiers,
+	// since it seems to be more reliable.
 	final override void CheckReplacement(ReplaceEvent event)
 	{
-		for (uint i = 0; i < ToReplace.Size(); i++)
+		let tn = self.replaceMap.At(event.replacee.GetClassName());
+
+		if (tn.Length() != 0)
 		{
-			if (event.Replacee is ToReplace[i])
-			{
-				event.Replacement = Replacements[i];
-				return;
-			}
+			event.replacement = (class<Actor>)(tn);
 		}
 	}
 }
