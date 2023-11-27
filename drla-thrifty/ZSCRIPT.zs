@@ -56,7 +56,7 @@ class RLThriftyReplacer : EventHandler
 
 mixin class RLThriftySmallAmmo
 {
-	override void DoPickupSpecial(Actor toucher)
+	void DoPickupSpecialImpl(Actor toucher)
 	{
 		super.DoPickupSpecial(toucher);
 
@@ -89,7 +89,7 @@ mixin class RLThriftySmallAmmo
 
 mixin class RLThriftyBigAmmo
 {
-	override void DoPickupSpecial(Actor toucher)
+	void DoPickupSpecialImpl(Actor toucher)
 	{
 		super.DoPickupSpecial(toucher);
 
@@ -137,6 +137,11 @@ class RLThriftyClip : ThriftyClip
 		Inventory.PickupMessage "Picked up a mag of bullets.";
 		Inventory.PickupSound "misc/clippickup";
 	}
+
+	override void DoPickupSpecial(Actor toucher)
+	{
+		self.DoPickupSpecialImpl(toucher);
+	}
 }
 
 class RLThriftyClipBox : ThriftyClipBox
@@ -150,6 +155,11 @@ class RLThriftyClipBox : ThriftyClipBox
 		Inventory.PickupSound "misc/clipboxpickup";
 		ThriftyAmmo.PickupOpenMsg "Opened a box of bullets.";
 	}
+
+	override void DoPickupSpecial(Actor toucher)
+	{
+		self.DoPickupSpecialImpl(toucher);
+	}
 }
 
 class RLThriftyShell : ThriftyShell
@@ -161,6 +171,14 @@ class RLThriftyShell : ThriftyShell
 		Tag "Shell Pickup";
 		Inventory.PickupMessage "Picked up some shotgun shells.";
 		Inventory.PickupSound "misc/shellpickup";
+	}
+
+	override void DoPickupSpecial(Actor toucher)
+	{
+		self.DoPickupSpecialImpl(toucher);
+
+		if (toucher.FindInventory('RLShellshockPerk') != null)
+			toucher.GiveInventory('RLRenegadeExtraShot', 1);
 	}
 }
 
@@ -175,6 +193,14 @@ class RLThriftyShellBox : ThriftyShellBox
 		Inventory.PickupSound "misc/shellpickup";
 		ThriftyAmmo.PickupOpenMsg "Opened a box of shotgun shells.";
 	}
+
+	override void DoPickupSpecial(Actor toucher)
+	{
+		self.DoPickupSpecialImpl(toucher);
+
+		if (toucher.FindInventory('RLShellshockPerk') != null)
+			toucher.GiveInventory('RLRenegadeExtraShot', 1);
+	}
 }
 
 class RLThriftyRocketAmmo : ThriftyRocketAmmo
@@ -186,6 +212,11 @@ class RLThriftyRocketAmmo : ThriftyRocketAmmo
 		Tag "Rocket Pickup";
 		Inventory.PickupMessage "Picked up a rocket.";
 		Inventory.PickupSound "misc/rocketpickup";
+	}
+
+	override void DoPickupSpecial(Actor toucher)
+	{
+		self.DoPickupSpecialImpl(toucher);
 	}
 }
 
@@ -200,6 +231,11 @@ class RLThriftyRocketBox : ThriftyRocketBox
 		Inventory.PickupSound "misc/rocketpickup";
 		ThriftyAmmo.PickupOpenMsg "Opened a box of rockets.";
 	}
+
+	override void DoPickupSpecial(Actor toucher)
+	{
+		self.DoPickupSpecialImpl(toucher);
+	}
 }
 
 class RLThriftyCell : ThriftyCell
@@ -211,6 +247,11 @@ class RLThriftyCell : ThriftyCell
 		Tag "Cell Pickup";
 		Inventory.PickupMessage "Picked up an energy cell.";
 		Inventory.PickupSound "misc/cellpickup";
+	}
+
+	override void DoPickupSpecial(Actor toucher)
+	{
+		self.DoPickupSpecialImpl(toucher);
 	}
 }
 
@@ -224,6 +265,11 @@ class RLThriftyCellPack : ThriftyCellPack
 		Inventory.PickupMessage "Picked up an energy cell pack.";
 		Inventory.PickupSound "misc/cellpickup";
 		ThriftyAmmo.PickupOpenMsg "Opened an energy cell pack.";
+	}
+
+	override void DoPickupSpecial(Actor toucher)
+	{
+		self.DoPickupSpecialImpl(toucher);
 	}
 }
 
