@@ -99,6 +99,17 @@ mixin class RLThriftySmallAmmo
 
 mixin class RLThriftyBigAmmo
 {
+	override void PostBeginPlay()
+	{
+		super.PostBeginPlay();
+
+		if (Random[RLThrifty](0, 6) == 0)
+		{
+			Actor.Spawn('RLModPackSpawner', self.pos);
+			GoAwayAndDie();
+		}
+	}
+
 	void DoPickupSpecialImpl(Actor toucher)
 	{
 		super.DoPickupSpecial(toucher);
