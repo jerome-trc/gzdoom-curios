@@ -40,9 +40,9 @@ class RLThriftyReplacer : StaticEventHandler
 		self.replaceMap.Insert("RLCellPack", "RLThriftyCellPack");
 		self.replaceMap.Insert("ThriftyCellPack", "RLThriftyCellPack");
 
-		self.replaceMap.Insert("StimPack", "RLThriftyStimPack");
-		self.replaceMap.Insert("RLStimPack", "RLThriftyStimPack");
-		self.replaceMap.Insert("ThriftyStimPack", "RLThriftyStimPack");
+		self.replaceMap.Insert("Stimpack", "RLThriftyStimpack");
+		self.replaceMap.Insert("RLStimpack", "RLThriftyStimpack");
+		self.replaceMap.Insert("ThriftyStimpack", "RLThriftyStimpack");
 
 		self.replaceMap.Insert("Medikit", "RLThriftyMedikit");
 		self.replaceMap.Insert("RLMedikit", "RLThriftyMedikit");
@@ -341,6 +341,7 @@ class RLThriftyMiniStimpack : ThriftyMiniStimpack
 	Default
 	{
 		ThriftyHealth.PickupMsg "Picked up a mini stimpack.";
+		Inventory.PickupSound "misc/stimpackpickup";
 	}
 }
 
@@ -351,6 +352,7 @@ class RLThriftyStimpack : ThriftyStimpack
 	Default
 	{
 		Inventory.PickupMessage "Picked up a stimpack.";
+		Inventory.PickupSound "misc/stimpackpickup";
 		ThriftyHealth.PickupOpenMsg "Opened a stimpack.";
 		RLThriftyStimpack.EnhancedHealth 5;
 	}
@@ -363,6 +365,7 @@ class RLThriftyMedikit : ThriftyMedikit
 	Default
 	{
 		Inventory.PickupMessage "Picked up a medikit.";
+		Inventory.PickupSound "misc/medikitpickup";
 		ThriftyHealth.PickupOpenMsg "Opened a medikit.";
 		RLThriftyMedikit.EnhancedHealth 13;
 	}
