@@ -239,6 +239,8 @@ class rlmal_EventHandler : StaticEventHandler
 					name tn = 'RLCyberdemon';
 					event.replacement = (class<Actor>)(tn);
 				}
+
+				break;
 			case RLMAL_CAT_NIGHTMARE:
 				if (RandomPick[rlmal](0, 1, 2, 3) == 0)
 				{
@@ -250,6 +252,8 @@ class rlmal_EventHandler : StaticEventHandler
 					name tn = 'RLNightmareCyberdemon';
 					event.replacement = (class<Actor>)(tn);
 				}
+
+				break;
 			case RLMAL_CAT_CYBERNETIC:
 				if (RandomPick[rlmal](0, 1, 2, 3) == 0)
 				{
@@ -261,11 +265,14 @@ class rlmal_EventHandler : StaticEventHandler
 					name tn = 'RLCyberneticCyberdemon';
 					event.replacement = (class<Actor>)(tn);
 				}
+
+				break;
 			case RLMAL_CAT_ARMAGGEDON:
 			{
 				// TODO: an armageddon cyberdemon may be added here eventually.
 				name tn = 'RLAbominant';
 				event.replacement = (class<Actor>)(tn);
+				break;
 			}
 			}
 
@@ -284,6 +291,8 @@ class rlmal_EventHandler : StaticEventHandler
 					name tn = 'RLSpiderMastermind';
 					event.replacement = (class<Actor>)(tn);
 				}
+
+				break;
 			case RLMAL_CAT_NIGHTMARE:
 				if (RandomPick[rlmal](0, 1, 2, 3) == 0)
 				{
@@ -295,6 +304,8 @@ class rlmal_EventHandler : StaticEventHandler
 					name tn = 'RLNightmareSpiderMastermind';
 					event.replacement = (class<Actor>)(tn);
 				}
+
+				break;
 			case RLMAL_CAT_CYBERNETIC:
 				if (RandomPick[rlmal](0, 1, 2, 3) == 0)
 				{
@@ -306,11 +317,14 @@ class rlmal_EventHandler : StaticEventHandler
 					name tn = 'RLCyberneticSpiderMastermind';
 					event.replacement = (class<Actor>)(tn);
 				}
+
+				break;
 			case RLMAL_CAT_ARMAGGEDON:
 			{
 				// TODO: an armageddon mastermind may be added here eventually.
 				name tn = 'RLAbominant';
 				event.replacement = (class<Actor>)(tn);
+				break;
 			}
 			}
 
