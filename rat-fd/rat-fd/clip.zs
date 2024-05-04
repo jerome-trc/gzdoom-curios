@@ -1,9 +1,9 @@
-class FDPP_ClipPickup : FDPP_AmmoPickup abstract
+class ratfd_ClipPickup : ratfd_AmmoPickup abstract
 {
 	Default
 	{
-		FDPP_AmmoPickup.PickupSoundTemplate "items/%sbullet%s";
-		FDPP_AmmoPickup.BFGAmmoMulti 20;
+		ratfd_AmmoPickup.PickupSoundTemplate "items/%sbullet%s";
+		ratfd_AmmoPickup.BFGAmmoMulti 20;
 	}
 
 	final override bool CanPickup(Actor toucher)
@@ -14,29 +14,29 @@ class FDPP_ClipPickup : FDPP_AmmoPickup abstract
 		let pawn = PlayerPawn(toucher);
 
 		if (ForbidWaste(pawn))
-			return FDPP_Common.HasFreeBulletCapacity(pawn, CalcGiveAmount(pawn));
+			return ratfd_Common.HasFreeBulletCapacity(pawn, CalcGiveAmount(pawn));
 		else
-			return !FDPP_Common.BulletsFull(PlayerPawn(toucher));
+			return !ratfd_Common.BulletsFull(PlayerPawn(toucher));
 	}
 
 	final override class<Inventory> GivenAmmoType(PlayerPawn pawn) const
 	{
-		return FDPP_Common.BulletType(pawn);
+		return ratfd_Common.BulletType(pawn);
 	}
 
-	final override FDPP_Theme RelevantTheme(PlayerPawn pawn) const
+	final override ratfd_Theme RelevantTheme(PlayerPawn pawn) const
 	{
-		return FDPP_Common.ChaingunTheme(pawn);
+		return ratfd_Common.ChaingunTheme(pawn);
 	}
 }
 
-mixin class FDPP_ClipPickupImpl
+mixin class ratfd_ClipPickupImpl
 {
-	private action void A_FDPP_SpawnPickupVisuals(bool dynamic)
+	private action void A_ratfd_SpawnPickupVisuals(bool dynamic)
 	{
-		if (FDPP_Common.Customizer())
+		if (ratfd_Common.Customizer())
 		{
-			let handler = FDPP_EventHandler.Get();
+			let handler = ratfd_EventHandler.Get();
 
 			for (uint i = 0; i < invoker.VISUAL_PICKUPS_CUSTOMIZER.Size(); i++)
 			{
@@ -61,10 +61,10 @@ mixin class FDPP_ClipPickupImpl
 	}
 }
 
-class FDPP_Clip_ZS : FDPP_ClipPickup
+class ratfd_Clip_ZS : ratfd_ClipPickup
 {
-	mixin FDPP_AmmoPickupImpl;
-	mixin FDPP_ClipPickupImpl;
+	mixin ratfd_AmmoPickupImpl;
+	mixin ratfd_ClipPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDClipPickupVisualPlutonia',
@@ -121,15 +121,15 @@ class FDPP_Clip_ZS : FDPP_ClipPickup
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 A_FDPP_AmmoSpawn;
+		TNT1 A 0 A_ratfd_AmmoSpawn;
 		Goto Spawn.Visuals;
 	Spawn.Visuals:
-		TNT1 A 0 A_FDPP_SpawnPickupVisuals(false);
+		TNT1 A 0 A_ratfd_SpawnPickupVisuals(false);
 		TNT1 A -1;
 		Stop;
 	Spawn.Dynamic:
 		TNT1 A 1;
-		TNT1 A 0 A_FDPP_SpawnPickupVisuals(true);
+		TNT1 A 0 A_ratfd_SpawnPickupVisuals(true);
 		TNT1 A -1;
 		Stop;
 	Spawn.Generic:
@@ -141,10 +141,10 @@ class FDPP_Clip_ZS : FDPP_ClipPickup
 	}
 }
 
-class FDPP_ClipBox_ZS : FDPP_ClipPickup
+class ratfd_ClipBox_ZS : ratfd_ClipPickup
 {
-	mixin FDPP_AmmoPickupImpl;
-	mixin FDPP_ClipPickupImpl;
+	mixin ratfd_AmmoPickupImpl;
+	mixin ratfd_ClipPickupImpl;
 
 	static const name VISUAL_PICKUPS[] = {
 		'FDClipBoxPickupVisualPlutonia',
@@ -208,23 +208,23 @@ class FDPP_ClipBox_ZS : FDPP_ClipPickup
 
 	Default
 	{
-		FDPP_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickup', 2;
-		FDPP_AmmoPickup.SmallCounterpart 'FDPP_Clip_ZS';
+		ratfd_AmmoPickup.BFGAmmoPickups 'FDBFGAmmoPickup', 2;
+		ratfd_AmmoPickup.SmallCounterpart 'ratfd_Clip_ZS';
 	}
 
 	States
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 A_FDPP_AmmoSpawn;
+		TNT1 A 0 A_ratfd_AmmoSpawn;
 		Goto Spawn.Visuals;
 	Spawn.Visuals:
-		TNT1 A 0 A_FDPP_SpawnPickupVisuals(false);
+		TNT1 A 0 A_ratfd_SpawnPickupVisuals(false);
 		TNT1 A -1;
 		Stop;
 	Spawn.Dynamic:
 		TNT1 A 1;
-		TNT1 A 0 A_FDPP_SpawnPickupVisuals(true);
+		TNT1 A 0 A_ratfd_SpawnPickupVisuals(true);
 		TNT1 A -1;
 		Stop;
 	Spawn.Generic:

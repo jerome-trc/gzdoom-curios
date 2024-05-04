@@ -1,0 +1,16 @@
+// Replacement types have to go in here due to ZS/DECORATE parsing order.
+
+actor ratfd_Clip : ratfd_Clip_ZS replaces FDClipPickup {}
+actor ratfd_ClipBox : ratfd_ClipBox_ZS replaces FDClipBoxPickup {}
+
+actor ratfd_Shell : ratfd_Shell_ZS replaces FDShellPickup {}
+actor ratfd_ShellBox : ratfd_ShellBox_ZS replaces FDShellBoxPickup {}
+
+actor ratfd_RocketAmmo : ratfd_RocketAmmo_ZS replaces FDRocketPickup {}
+actor ratfd_RocketBox : ratfd_RocketBox_ZS replaces FDRocketBoxPickup {}
+
+actor ratfd_Cell : ratfd_Cell_ZS replaces FDCellPickup {}
+actor ratfd_CellPack : ratfd_CellPack_ZS replaces FDCellPackPickup {}
+
+actor ratfd_BFGPickup : ratfd_BFGPickup_ZS replaces FDBFGAmmoPickup {}
+actor ratfd_BFGPickupBig : ratfd_BFGPickupBig_ZS replaces FDBFGAmmoPickupBig {}

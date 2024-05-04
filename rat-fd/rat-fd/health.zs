@@ -1,4 +1,4 @@
-class FDPP_Berserk : Berserk
+class ratfd_Berserk : Berserk
 {
 	Default
 	{
@@ -24,7 +24,7 @@ class FDPP_Berserk : Berserk
 
 		toucher.GiveBody(100, 0);
 
-		if (!CVar.GetCVar("FDPP_wasteproof_berserk", toucher.Player).GetBool())
+		if (!CVar.GetCVar("RATFD_wasteproof_berserk", toucher.Player).GetBool())
 		{
 			return;
 		}

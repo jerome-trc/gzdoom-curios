@@ -1,7 +1,7 @@
 // These types improve the performance of Plasma Vulcan projectiles by optionally
 // applying a significant reduction on their trails.
 
-class FDPP_BTSXPlasmaProjectile : FastProjectile
+class ratfd_BTSXPlasmaProjectile : FastProjectile
 {
 	Default
 	{
@@ -30,7 +30,7 @@ class FDPP_BTSXPlasmaProjectile : FastProjectile
 		TNT1 A 0;
 		TNT1 A 0
 		{
-			if (FDPP_projtrails)
+			if (RATFD_projtrails)
 				return ResolveState('Spawn.Trail');
 			else
 				return ResolveState('Spawn.NoTrail');
@@ -271,7 +271,7 @@ class FDPP_BTSXPlasmaProjectile : FastProjectile
 	}
 }
 
-class FDPP_BTSXFancyPlasmaProjectile : FDPP_BTSXPlasmaProjectile
+class ratfd_BTSXFancyPlasmaProjectile : ratfd_BTSXPlasmaProjectile
 {
 	Default
 	{

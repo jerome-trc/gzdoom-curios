@@ -3,9 +3,9 @@
 // This works, so I'm leaving it as it is.
 // It inherits from `CustomInventory` while undoing that class' overrides
 // so that Zhs2's Intelligent Supplies can be configured to ignore these.
-class FDPP_AmmoPickup : CustomInventory abstract
+class ratfd_AmmoPickup : CustomInventory abstract
 {
-	protected meta class<FDPP_AmmoPickup> SmallCounterpart;
+	protected meta class<ratfd_AmmoPickup> SmallCounterpart;
 	property SmallCounterpart: SmallCounterpart;
 
 	protected meta class<Inventory> BFGAmmoPickupType;
@@ -53,7 +53,7 @@ class FDPP_AmmoPickup : CustomInventory abstract
 	final override Inventory CreateTossable(int amt)
 	{
 		let ret = super.CreateTossable(amt);
-		FDPP_AmmoPickup(ret).IsDropped = true;
+		ratfd_AmmoPickup(ret).IsDropped = true;
 		return ret;
 	}
 
@@ -84,7 +84,7 @@ class FDPP_AmmoPickup : CustomInventory abstract
 	{
 		return
 			!IsLargePickup() &&
-			CVar.GetCVar("FDPP_wasteproof_small", pawn.Player).GetBool();
+			CVar.GetCVar("RATFD_wasteproof_small", pawn.Player).GetBool();
 	}
 
 	final override void DoPickupSpecial(Actor toucher)
@@ -97,12 +97,12 @@ class FDPP_AmmoPickup : CustomInventory abstract
 		uint giveAmt = CalcGiveAmount(pawn) * PlayerAmountMultiplier(pawn);
 
 		sound pkupSnd;
-		
-		if (!(self is 'FDPP_BFGPickupBase'))
+
+		if (!(self is 'ratfd_BFGPickupBase'))
 		{
 			pkupSnd = String.Format(
 				PickupSoundTemplate,
-				FDPP_Common.THEME_STRINGS[theme],
+				ratfd_Common.THEME_STRINGS[theme],
 				IsLargePickup() ? "large" : "small"
 			);
 		}
@@ -150,7 +150,7 @@ class FDPP_AmmoPickup : CustomInventory abstract
 		AmmoPickupSound(pawn, String.Format(pkupSnd));
 		AmmoPickupMessage(pawn, ResolvePickupMessage(theme, partial));
 
-		if (FD_bfgammosystem == FDPP_BFGAMMO_ALLLARGE &&
+		if (FD_bfgammosystem == RATFD_BFGAMMO_ALLLARGE &&
 			IsLargePickup() &&
 			BFGAmmoMulti > 0)
 		{
@@ -163,14 +163,14 @@ class FDPP_AmmoPickup : CustomInventory abstract
 			pawn.GiveInventory('FDBFGAmmoPickupCounter', bfgAmt);
 			DispenseBFGAmmo(pawn);
 		}
-		else if (FD_bfgammosystem == FDPP_BFGAMMO_FROMCELL)
+		else if (FD_bfgammosystem == RATFD_BFGAMMO_FROMCELL)
 		{
 			let bfgAmt = 0;
 			let cv = CVar.GetCVar("FD_bfgammoamount", pawn.Player).GetFloat();
 
-			if (self is 'FDPP_Cell_ZS')
+			if (self is 'ratfd_Cell_ZS')
 				bfgAmt = 20 * cv;
-			else if (self is 'FDPP_CellPack_ZS')
+			else if (self is 'ratfd_CellPack_ZS')
 				bfgAmt = 50 * cv;
 
 			if (bfgAmt <= 0)
@@ -179,7 +179,7 @@ class FDPP_AmmoPickup : CustomInventory abstract
 			pawn.GiveInventory('FDBFGAmmoPickupCounter', bfgAmt);
 			DispenseBFGAmmo(pawn);
 		}
-		else if (self is 'FDPP_BFGPickupBase')
+		else if (self is 'ratfd_BFGPickupBase')
 		{
 			DispenseBFGAmmo(pawn);
 		}
@@ -187,8 +187,8 @@ class FDPP_AmmoPickup : CustomInventory abstract
 
 	private void DispenseBFGAmmo(PlayerPawn pawn)
 	{
-		let cc_t = FDPP_Common.BFGCollectCounterType(pawn);
-		let charge_t = FDPP_Common.BFGChargeType(pawn);
+		let cc_t = ratfd_Common.BFGCollectCounterType(pawn);
+		let charge_t = ratfd_Common.BFGChargeType(pawn);
 
 		let apc = pawn.FindInventory('FDBFGAmmoPickupCounter');
 		let cc = pawn.FindInventory(cc_t);
@@ -247,14 +247,14 @@ class FDPP_AmmoPickup : CustomInventory abstract
 
 			PrintPickupMessage(
 				pawn.CheckLocalView(),
-				MESSAGES[FDPP_Common.MainTheme(pawn)]
+				MESSAGES[ratfd_Common.MainTheme(pawn)]
 			);
 		}
 
 		while (leftover >= 25)
 		{
 			A_SpawnItemEx(
-				'FDPP_BFGPickupBig_ZS',
+				'ratfd_BFGPickupBig_ZS',
 				0.0, 0.0, 16.0,
 				FRandom(0.1, 2.0), 1.0, FRandom(0.1, 2.0),
 				FRandom(0.0, 360.0)
@@ -266,7 +266,7 @@ class FDPP_AmmoPickup : CustomInventory abstract
 		while (leftover >= 10)
 		{
 			A_SpawnItemEx(
-				'FDPP_BFGPickup_ZS',
+				'ratfd_BFGPickup_ZS',
 				0.0, 0.0, 16.0,
 				FRandom(0.1, 2.0), 1.0, FRandom(0.1, 2.0),
 				FRandom(0.0, 360.0)
@@ -276,22 +276,22 @@ class FDPP_AmmoPickup : CustomInventory abstract
 		}
 	}
 
-	abstract protected string ResolvePickupMessage(FDPP_Theme theme, bool partial) const;
+	abstract protected string ResolvePickupMessage(ratfd_Theme theme, bool partial) const;
 	abstract protected uint CalcGiveAmount(PlayerPawn pawn) const;
 	// This needs to return a `class<Inventory>` rather than a `class<Ammo` in
 	// order to generalise over `FDBFGAmmoPickupCounter`.
 	abstract protected class<Inventory> GivenAmmoType(PlayerPawn pawn) const;
-	abstract FDPP_Theme RelevantTheme(PlayerPawn pawn) const;
+	abstract ratfd_Theme RelevantTheme(PlayerPawn pawn) const;
 
-	protected action state A_FDPP_AmmoSpawn()
+	protected action state A_ratfd_AmmoSpawn()
 	{
 		bool bfgSpawns =
-			FD_bfgammosystem == FDPP_BFGAMMO_LARGESEPARATE &&
+			FD_bfgammosystem == RATFD_BFGAMMO_LARGESEPARATE &&
 			invoker.IsLargePickup();
 
 		bfgSpawns |=
-			FD_bfgammosystem == FDPP_BFGAMMO_CELLSEPARATE &&
-			invoker is 'FDPP_CellPickup';
+			FD_bfgammosystem == RATFD_BFGAMMO_CELLSEPARATE &&
+			invoker is 'ratfd_CellPickup';
 
 		if (bfgSpawns)
 		{
@@ -308,9 +308,9 @@ class FDPP_AmmoPickup : CustomInventory abstract
 
 		switch (FD_itemvisuals)
 		{
-		case FDPP_ITEMVIS_GENERIC:
+		case RATFD_ITEMVIS_GENERIC:
 			return ResolveState('Spawn.Generic');
-		case FDPP_ITEMVIS_FANCYGENERIC:
+		case RATFD_ITEMVIS_FANCYGENERIC:
 			return ResolveState('Spawn.Fancy');
 		default:
 		}
@@ -322,9 +322,9 @@ class FDPP_AmmoPickup : CustomInventory abstract
 	}
 }
 
-mixin class FDPP_AmmoPickupImpl
+mixin class ratfd_AmmoPickupImpl
 {
-	final override string ResolvePickupMessage(FDPP_Theme theme, bool partial) const
+	final override string ResolvePickupMessage(ratfd_Theme theme, bool partial) const
 	{
 		if (partial)
 			return PICKUP_MESSAGES_PARTIAL[theme];

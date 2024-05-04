@@ -1,5 +1,0 @@
-GameInfo
-{
-	AddEventHandlers = "FDPP_EventHandler"
-	StatusBarClass = "FDPP_StatusBar"
-}

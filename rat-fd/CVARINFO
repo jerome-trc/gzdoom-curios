@@ -1,0 +1,6 @@
+server bool RATFD_projtrails = true;
+
+////////////////////////////////////////////////////////////////////////////////
+
+user bool RATFD_wasteproof_small = false;
+user bool RATFD_wasteproof_berserk = true;

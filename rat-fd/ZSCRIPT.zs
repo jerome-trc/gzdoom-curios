@@ -1,0 +1,15 @@
+version "2.4"
+
+#include "rat-fd/common.zs"
+
+#include "rat-fd/ammo.zs"
+#include "rat-fd/bfg.zs"
+#include "rat-fd/cell.zs"
+#include "rat-fd/clip.zs"
+#include "rat-fd/event.zs"
+#include "rat-fd/health.zs"
+#include "rat-fd/projectiles.zs"
+#include "rat-fd/rocket.zs"
+#include "rat-fd/sbar.zs"
+#include "rat-fd/shell.zs"
+#include "rat-fd/tooltipoptions.zs"

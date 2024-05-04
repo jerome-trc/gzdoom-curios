@@ -1,0 +1,5 @@
+GameInfo
+{
+	AddEventHandlers = "ratfd_EventHandler"
+	StatusBarClass = "ratfd_StatusBar"
+}

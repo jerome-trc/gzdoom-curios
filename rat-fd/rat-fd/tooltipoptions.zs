@@ -21,10 +21,10 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-// Prefix menu item names with "FDPP_" so as not to hit
+// Prefix menu item names with "ratfd_" so as not to hit
 // a redefinition error when trying to load this with Gun Bonsai.
 
-class FDPP_Tooltip : Object ui {
+class ratfd_Tooltip : Object ui {
 	double x, y, w, xpad, ypad, scale; // Geometry
 	uint first, last; // First and last menuitems this applies to
 	Font font;
@@ -32,7 +32,7 @@ class FDPP_Tooltip : Object ui {
 	TextureID texture;
 	string text;
 
-	void CopyFrom(FDPP_Tooltip settings) {
+	void CopyFrom(ratfd_Tooltip settings) {
 		self.x = settings.x;
 		self.y = settings.y;
 		self.w = settings.w;
@@ -109,16 +109,16 @@ class FDPP_Tooltip : Object ui {
 	}
 }
 
-class FDPP_TooltipOptionMenu : OptionMenu {
-	array<FDPP_Tooltip> tooltips;
+class ratfd_TooltipOptionMenu : OptionMenu {
+	array<ratfd_Tooltip> tooltips;
 
 	// Default settings:
 	// - top left corner
 	// - 30% of the screen width
 	// - 1em horizontal margin and 0.5lh vertical margin
 	// - white text using newsmallfont
-	FDPP_Tooltip GetDefaults() {
-		let tt = FDPP_Tooltip(new("FDPP_Tooltip"));
+	ratfd_Tooltip GetDefaults() {
+		let tt = ratfd_Tooltip(new("ratfd_Tooltip"));
 		tt.x = tt.y = 0.0;
 		tt.w = 0.3;
 		tt.xpad = 1.0;
@@ -135,7 +135,7 @@ class FDPP_TooltipOptionMenu : OptionMenu {
 
 		// If there's already a TooltipHolder in tail position, we've already been
 		// initialized and just need to retrieve our saved tooltips from it.
-		let tail = OptionMenuItemFDPP_TooltipHolder(desc.mItems[desc.mItems.size()-1]);
+		let tail = OptionMenuItemRATFD_TooltipHolder(desc.mItems[desc.mItems.size()-1]);
 		if (tail) {
 		tooltips.copy(tail.tooltips);
 		return;
@@ -153,8 +153,8 @@ class FDPP_TooltipOptionMenu : OptionMenu {
 		// items.
 		bool tooltip_mode = true;
 		for (uint i = 0; i < items.size(); ++i) {
-		if (items[i] is "OptionMenuItemFDPP_Tooltip") {
-			let tt = OptionMenuItemFDPP_Tooltip(items[i]);
+		if (items[i] is "OptionMenuItemRATFD_Tooltip") {
+			let tt = OptionMenuItemRATFD_Tooltip(items[i]);
 			if (tt.tooltip == "" && !tooltip_mode) {
 			// Explicit marker that the above items should have no tooltips.
 			startblock = desc.mItems.size();
@@ -162,10 +162,10 @@ class FDPP_TooltipOptionMenu : OptionMenu {
 			AddTooltip(settings, startblock, desc.mItems.size()-1, tt.tooltip);
 			tooltip_mode = true;
 			}
-		} else if (items[i] is "OptionMenuItemFDPP_TooltipGeometry") {
-			OptionMenuItemFDPP_TooltipGeometry(items[i]).CopyTo(settings);
-		} else if (items[i] is "OptionMenuItemFDPP_TooltipAppearance") {
-			OptionMenuItemFDPP_TooltipAppearance(items[i]).CopyTo(settings);
+		} else if (items[i] is "OptionMenuItemRATFD_TooltipGeometry") {
+			OptionMenuItemRATFD_TooltipGeometry(items[i]).CopyTo(settings);
+		} else if (items[i] is "OptionMenuItemRATFD_TooltipAppearance") {
+			OptionMenuItemRATFD_TooltipAppearance(items[i]).CopyTo(settings);
 		} else {
 			if (tooltip_mode) {
 			// Just finished a run of tooltips.
@@ -178,17 +178,17 @@ class FDPP_TooltipOptionMenu : OptionMenu {
 
 		// Store our tooltips inside the menu descriptor so we can recover them when
 		// the menu is redisplayed.
-		desc.mItems.push(new("OptionMenuItemFDPP_TooltipHolder").Init(tooltips));
+		desc.mItems.push(new("OptionMenuItemRATFD_TooltipHolder").Init(tooltips));
 	}
 
-	FDPP_Tooltip AppendableTooltip(uint first, uint last) {
+	ratfd_Tooltip AppendableTooltip(uint first, uint last) {
 		if (tooltips.size() <= 0) return null;
 		let tt = tooltips[tooltips.size()-1];
 		if (tt.first == first) return tt;
 		return null;
 	}
 
-	void AddTooltip(FDPP_Tooltip settings, uint first, uint last, string tooltip) {
+	void AddTooltip(ratfd_Tooltip settings, uint first, uint last, string tooltip) {
 		if (first < 0) ThrowAbortException("Tooltip must have at least one menu item preceding it!");
 		let tt = AppendableTooltip(first, last);
 		if (tt) {
@@ -197,7 +197,7 @@ class FDPP_TooltipOptionMenu : OptionMenu {
 		return;
 		}
 		// No existing tooltip for these menu entries, create a new one.
-		tt = new("FDPP_Tooltip");
+		tt = new("ratfd_Tooltip");
 		tt.CopyFrom(settings);
 		tt.first = first;
 		tt.last = last;
@@ -205,7 +205,7 @@ class FDPP_TooltipOptionMenu : OptionMenu {
 		tooltips.push(tt);
 	}
 
-	FDPP_Tooltip FindTooltipFor(int item) {
+	ratfd_Tooltip FindTooltipFor(int item) {
 		if (item < 0 || item >= mDesc.mItems.size()) return null;
 		if (!mDesc.mItems[item].Selectable()) return null;
 		for (uint i = 0; i < tooltips.size(); ++i) {
@@ -225,10 +225,10 @@ class FDPP_TooltipOptionMenu : OptionMenu {
 	}
 }
 
-class OptionMenuItemFDPP_TooltipHolder : OptionMenuItem {
-	array<FDPP_Tooltip> tooltips;
+class OptionMenuItemRATFD_TooltipHolder : OptionMenuItem {
+	array<ratfd_Tooltip> tooltips;
 
-	OptionMenuItemFDPP_TooltipHolder Init(array<FDPP_Tooltip> tts) {
+	OptionMenuItemRATFD_TooltipHolder Init(array<ratfd_Tooltip> tts) {
 		self.tooltips.copy(tts);
 		return self;
 	}
@@ -236,19 +236,19 @@ class OptionMenuItemFDPP_TooltipHolder : OptionMenuItem {
 	override bool Selectable() { return false; }
 }
 
-class OptionMenuItemFDPP_Tooltip : OptionMenuItem {
+class OptionMenuItemRATFD_Tooltip : OptionMenuItem {
 	string tooltip;
 
-	OptionMenuItemFDPP_Tooltip Init(string tooltip) {
+	OptionMenuItemRATFD_Tooltip Init(string tooltip) {
 		self.tooltip = tooltip.filter();
 		return self;
 	}
 }
 
-class OptionMenuItemFDPP_TooltipGeometry : OptionMenuitem {
+class OptionMenuItemRATFD_TooltipGeometry : OptionMenuitem {
 	double x, y, w, xpad, ypad, scale;
 
-	OptionMenuItemFDPP_TooltipGeometry Init(
+	OptionMenuItemRATFD_TooltipGeometry Init(
 		double x=-1.0, double y=-1.0, double w=-1.0,
 		double xpad=-1.0, double ypad=-1.0,
 		double scale=-1.0) {
@@ -258,7 +258,7 @@ class OptionMenuItemFDPP_TooltipGeometry : OptionMenuitem {
 		return self;
 	}
 
-	void CopyTo(FDPP_Tooltip settings) {
+	void CopyTo(ratfd_Tooltip settings) {
 		if (self.x >= 0) settings.x = self.x;
 		if (self.y >= 0) settings.y = self.y;
 		if (self.w >= 0) settings.w = self.w;
@@ -268,19 +268,19 @@ class OptionMenuItemFDPP_TooltipGeometry : OptionMenuitem {
 	}
 }
 
-class OptionMenuItemFDPP_TooltipAppearance : OptionMenuitem {
+class OptionMenuItemRATFD_TooltipAppearance : OptionMenuitem {
 	Font myfont;
 	Color colour;
 	TextureID texture;
 
-	OptionMenuItemFDPP_TooltipAppearance Init(string myfont="", string colour="", string texture="") {
+	OptionMenuItemRATFD_TooltipAppearance Init(string myfont="", string colour="", string texture="") {
 		if (myfont != "") self.myfont = Font.GetFont(myfont);
 		if (colour != "") self.colour = Font.FindFontColor(colour);
 		if (texture != "") self.texture = TexMan.CheckForTexture(texture, TexMan.TYPE_ANY);
 		return self;
 	}
 
-	void CopyTo(FDPP_Tooltip settings) {
+	void CopyTo(ratfd_Tooltip settings) {
 		if (self.myfont) settings.font = self.myfont;
 		if (self.colour) settings.colour = self.colour;
 		if (self.texture) settings.texture = self.texture;

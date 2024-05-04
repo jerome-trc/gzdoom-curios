@@ -14,8 +14,8 @@ zip -0 -r ../out/drla-bonsai.pk3 *
 cd ../drla-thrifty
 zip -0 -r ../out/drla-thrifty.pk3 *
 
-cd ../fd-patches
-zip -0 -r ../out/fd-patchpack.pk3 *
+cd ../rat-fd
+zip -0 -r ../out/rat-fd.pk3 *
 
 cd ../rat-crosshairs
 zip -0 -r ../out/rat-crosshairs.pk3 *

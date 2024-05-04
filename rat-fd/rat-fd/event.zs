@@ -1,16 +1,16 @@
 // Rectifies ammo capacities to intended values when using the Customizer add-on.
-class FDPP_EventHandler : EventHandler
+class ratfd_EventHandler : EventHandler
 {
 	final override void OnRegister()
 	{
-		if (!FDPP_Common.Customizer())
+		if (!ratfd_Common.Customizer())
 		{
 			Destroy();
 			return;
 		}
 
 		for (uint i = 0; i < 5; i++)
-			for (uint ii = 0; ii < __FDPP_THEME_COUNT__; ii++)
+			for (uint ii = 0; ii < __RATFD_THEME_COUNT__; ii++)
 				PlayerPresence[i][ii] = 256;
 	}
 
@@ -29,12 +29,12 @@ class FDPP_EventHandler : EventHandler
 
 	private static void FixFDCAmmoCapacities(uint playerNumber)
 	{
-		if (!FDPP_Common.Customizer())
+		if (!ratfd_Common.Customizer())
 			return;
 
 		PlayerInfo p = Players[playerNumber];
 
-		let cgt = FDPP_Common.ChaingunTheme(p.MO);
+		let cgt = ratfd_Common.ChaingunTheme(p.MO);
 
 		if (cgt == int.MAX)
 			return; // Probably in a TITLEMAP.
@@ -44,11 +44,11 @@ class FDPP_EventHandler : EventHandler
 		let iRocket = Ammo(FindOrGive(p.MO, 'RocketAmmo'));
 		let iCell = Ammo(FindOrGive(p.MO, 'Cell'));
 
-		let clip_tn = FDPP_Common.BULLET_TYPES[cgt];
-		let shell_tn1 = FDPP_Common.SHELL_TYPES[FDPP_Common.ShotgunTheme(p.MO)];
-		let shell_tn2 = FDPP_Common.SHELL_TYPES[FDPP_Common.SuperShotgunTheme(p.MO)];
-		let rocket_tn = FDPP_Common.ROCKETAMMO_TYPES[FDPP_Common.RocketLauncherTheme(p.MO)];
-		let cell_tn = FDPP_Common.CELL_TYPES[FDPP_Common.PlasmaRifleTheme(p.MO)];
+		let clip_tn = ratfd_Common.BULLET_TYPES[cgt];
+		let shell_tn1 = ratfd_Common.SHELL_TYPES[ratfd_Common.ShotgunTheme(p.MO)];
+		let shell_tn2 = ratfd_Common.SHELL_TYPES[ratfd_Common.SuperShotgunTheme(p.MO)];
+		let rocket_tn = ratfd_Common.ROCKETAMMO_TYPES[ratfd_Common.RocketLauncherTheme(p.MO)];
+		let cell_tn = ratfd_Common.CELL_TYPES[ratfd_Common.PlasmaRifleTheme(p.MO)];
 
 		let clip_t = (class<Ammo>)(clip_tn);
 		let shell_t1 = (class<Ammo>)(shell_tn1);
@@ -81,11 +81,11 @@ class FDPP_EventHandler : EventHandler
 
 		if (pawn is 'FDCPlayer')
 		{
-			PlayerPresence[0][FDPP_Common.ChaingunTheme(pawn)] = 0;
-			PlayerPresence[1][FDPP_Common.SuperShotgunTheme(pawn)] = 0;
-			PlayerPresence[2][FDPP_Common.RocketLauncherTheme(pawn)] = 0;
-			PlayerPresence[3][FDPP_Common.PlasmaRifleTheme(pawn)] = 0;
-			PlayerPresence[4][FDPP_Common.BFGTheme(pawn)] = 0;
+			PlayerPresence[0][ratfd_Common.ChaingunTheme(pawn)] = 0;
+			PlayerPresence[1][ratfd_Common.SuperShotgunTheme(pawn)] = 0;
+			PlayerPresence[2][ratfd_Common.RocketLauncherTheme(pawn)] = 0;
+			PlayerPresence[3][ratfd_Common.PlasmaRifleTheme(pawn)] = 0;
+			PlayerPresence[4][ratfd_Common.BFGTheme(pawn)] = 0;
 		}
 
 		FixFDCAmmoCapacities(event.PlayerNumber);
@@ -99,11 +99,11 @@ class FDPP_EventHandler : EventHandler
 	final override void CheckReplacement(ReplaceEvent event)
 	{
 		if (event.Replacee is 'FDBerserkPickup')
-			event.Replacement = 'FDPP_Berserk';
+			event.Replacement = 'ratfd_Berserk';
 		else if (event.Replacee.GetClassName() == 'FDBTSXPlasmaProjectile')
-			event.Replacement = 'FDPP_BTSXPlasmaProjectile';
+			event.Replacement = 'ratfd_BTSXPlasmaProjectile';
 		else if (event.Replacee.GetClassName() == 'FDBTSXFancyPlasmaProjectile')
-			event.Replacement = 'FDPP_BTSXFancyPlasmaProjectile';
+			event.Replacement = 'ratfd_BTSXFancyPlasmaProjectile';
 	}
 
 	// Non-Customizer players have an ACS script that tracks if any of them are
@@ -112,35 +112,35 @@ class FDPP_EventHandler : EventHandler
 	// Any given value is either 256 or 0.
 	// Remember that this targets a ZS version below 3.7.2 so array accesses
 	// are dimensionally backwards.
-	private int PlayerPresence[__FDPP_THEME_COUNT__][5];
+	private int PlayerPresence[__RATFD_THEME_COUNT__][5];
 
-	int ClipVisualSpawnFailChance(FDPP_Theme theme) const
+	int ClipVisualSpawnFailChance(ratfd_Theme theme) const
 	{
 		return PlayerPresence[0][theme];
 	}
 
-	int ShellVisualSpawnFailChance(FDPP_Theme theme) const
+	int ShellVisualSpawnFailChance(ratfd_Theme theme) const
 	{
 		return PlayerPresence[1][theme];
 	}
 
-	int RocketAmmoVisualSpawnFailChance(FDPP_Theme theme) const
+	int RocketAmmoVisualSpawnFailChance(ratfd_Theme theme) const
 	{
 		return PlayerPresence[2][theme];
 	}
 
-	int CellVisualSpawnFailChance(FDPP_Theme theme) const
+	int CellVisualSpawnFailChance(ratfd_Theme theme) const
 	{
 		return PlayerPresence[3][theme];
 	}
 
-	int BFGAmmoVisualSpawnFailChance(FDPP_Theme theme) const
+	int BFGAmmoVisualSpawnFailChance(ratfd_Theme theme) const
 	{
 		return PlayerPresence[4][theme];
 	}
 
-	static clearscope FDPP_EventHandler Get()
+	static clearscope ratfd_EventHandler Get()
 	{
-		return FDPP_EventHandler(EventHandler.Find('FDPP_EventHandler'));
+		return ratfd_EventHandler(EventHandler.Find('ratfd_EventHandler'));
 	}
 }

@@ -1,0 +1,27 @@
+AddOptionMenu "OptionsMenu"
+{
+	SubMenu "$RATFD_MODTITLE", "ratfd_Options"
+}
+
+OptionMenu "ratfd_Options"
+{
+	class ratfd_TooltipOptionMenu
+	ratfd_TooltipGeometry 0.0, 0.0, 0.15, 0.1, 0.1, 0.5
+
+	Title "$RATFD_OPTTITLE"
+
+	StaticText ""
+	StaticText "$RATFD_OPTCAT_GAMEPLAY"
+
+	Option "$RATFD_OPTLBL_WASTEPROOFSMALL", "RATFD_wasteproof_small", "OnOff"
+	ratfd_Tooltip "$RATFD_OPTTIP_WASTEPROOFSMALL"
+
+	Option "$RATFD_OPTLBL_WASTEPROOFBERSERK", "RATFD_wasteproof_berserk", "OnOff"
+	ratfd_Tooltip "$RATFD_OPTTIP_WASTEPROOFBERSERK"
+
+	StaticText ""
+	StaticText "$RATFD_OPTCAT_PERF"
+
+	Option "$RATFD_OPTLBL_PROJTRAILS", "RATFD_projtrails", "OnOff"
+	ratfd_Tooltip "$RATFD_OPTTIP_PROJTRAILS"
+}

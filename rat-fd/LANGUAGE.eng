@@ -1,0 +1,25 @@
+// Commonwealth English localization.
+
+[eng default]
+
+RATFD_MODTITLE = "Final Doomer Rat Patch";
+
+RATFD_OPTTITLE = "\c[Yellow]Final Doomer Rat Patch:\c[White] Preferences";
+
+RATFD_OPTCAT_GAMEPLAY = "\c[Green]Gameplay Options";
+RATFD_OPTCAT_PERF = "\c[Green]Performance Options";
+
+RATFD_OPTLBL_WASTEPROOFSMALL = "Waste-Proof Small Ammo Pickups";
+RATFD_OPTTIP_WASTEPROOFSMALL =
+	"Forbid collecting small ammo pickups if there isn't enough space to \n"
+	"fit all of their contents (even if you have space for all but 1).";
+
+RATFD_OPTLBL_WASTEPROOFBERSERK = "Waste-Proof Berserk";
+RATFD_OPTTIP_WASTEPROOFBERSERK =
+	"Causes berserk packs to release health pickups for every point of health not \n"
+	"not needed when collected.";
+
+RATFD_OPTLBL_PROJTRAILS = "Projectile Trails";
+RATFD_OPTTIP_PROJTRAILS =
+	"Significantly reduces the trails of projectiles fired by \n"
+	"BTSXGuy's Plasma Vulcan to improve FPS.";

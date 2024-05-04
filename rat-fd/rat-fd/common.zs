@@ -1,4 +1,4 @@
-struct FDPP_Utils play
+struct ratfd_Utils play
 {
 	static clearscope bool InvMaxed(Actor owner, class<Inventory> type)
 	{
@@ -6,13 +6,13 @@ struct FDPP_Utils play
 
 		if (item == null)
 			return false;
-		
+
 		return item.Amount >= item.MaxAmount;
 	}
 }
 
 // Symbols related to resolving and manipulating player classes and gear.
-struct FDPP_Common play
+struct ratfd_Common play
 {
 	static const string THEME_STRINGS[] = {
 		"plut",
@@ -152,7 +152,7 @@ struct FDPP_Common play
 		return (class<PlayerPawn>)(n) != null;
 	}
 
-	static clearscope FDPP_Theme MainTheme(PlayerPawn pawn)
+	static clearscope ratfd_Theme MainTheme(PlayerPawn pawn)
 	{
 		static const name TOKENS[] = {
 			'FDPlutoniaToken',
@@ -179,7 +179,7 @@ struct FDPP_Common play
 		return int.MAX;
 	}
 
-	static clearscope FDPP_Theme ChainsawTheme(PlayerPawn pawn)
+	static clearscope ratfd_Theme ChainsawTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -187,7 +187,7 @@ struct FDPP_Common play
 			return CVar.GetCVar("FDCChainsawToken").GetInt();
 	}
 
-	static clearscope FDPP_Theme ShotgunTheme(PlayerPawn pawn)
+	static clearscope ratfd_Theme ShotgunTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -195,7 +195,7 @@ struct FDPP_Common play
 			return CVar.GetCVar("FDCShotgunToken").GetInt();
 	}
 
-	static clearscope FDPP_Theme SuperShotgunTheme(PlayerPawn pawn)
+	static clearscope ratfd_Theme SuperShotgunTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -203,7 +203,7 @@ struct FDPP_Common play
 			return CVar.GetCVar("FDCSuperShotgunToken").GetInt();
 	}
 
-	static clearscope FDPP_Theme ChaingunTheme(PlayerPawn pawn)
+	static clearscope ratfd_Theme ChaingunTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -211,7 +211,7 @@ struct FDPP_Common play
 			return CVar.GetCVar("FDCChaingunToken").GetInt();
 	}
 
-	static clearscope FDPP_Theme RocketLauncherTheme(PlayerPawn pawn)
+	static clearscope ratfd_Theme RocketLauncherTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -219,7 +219,7 @@ struct FDPP_Common play
 			return CVar.GetCVar("FDCRocketLauncherToken").GetInt();
 	}
 
-	static clearscope FDPP_Theme PlasmaRifleTheme(PlayerPawn pawn)
+	static clearscope ratfd_Theme PlasmaRifleTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -227,7 +227,7 @@ struct FDPP_Common play
 			return CVar.GetCVar("FDCPlasmaRifleToken").GetInt();
 	}
 
-	static clearscope FDPP_Theme BFGTheme(PlayerPawn pawn)
+	static clearscope ratfd_Theme BFGTheme(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
 			return MainTheme(pawn);
@@ -238,7 +238,7 @@ struct FDPP_Common play
 	static clearscope class<Ammo> BulletType(PlayerPawn pawn)
 	{
 		if (!Customizer())
-			return FDPP_Common.BULLET_TYPES[MainTheme(pawn)];
+			return ratfd_Common.BULLET_TYPES[MainTheme(pawn)];
 		else
 			return 'Clip';
 	}
@@ -246,7 +246,7 @@ struct FDPP_Common play
 	static clearscope class<Ammo> ShellType(PlayerPawn pawn)
 	{
 		if (!Customizer())
-			return FDPP_Common.SHELL_TYPES[MainTheme(pawn)];
+			return ratfd_Common.SHELL_TYPES[MainTheme(pawn)];
 		else
 			return 'Shell';
 	}
@@ -254,7 +254,7 @@ struct FDPP_Common play
 	static clearscope class<Ammo> RocketAmmoType(PlayerPawn pawn)
 	{
 		if (!Customizer())
-			return FDPP_Common.ROCKETAMMO_TYPES[MainTheme(pawn)];
+			return ratfd_Common.ROCKETAMMO_TYPES[MainTheme(pawn)];
 		else
 			return 'RocketAmmo';
 	}
@@ -262,19 +262,19 @@ struct FDPP_Common play
 	static clearscope class<Ammo> CellType(PlayerPawn pawn)
 	{
 		if (!Customizer())
-			return FDPP_Common.CELL_TYPES[MainTheme(pawn)];
+			return ratfd_Common.CELL_TYPES[MainTheme(pawn)];
 		else
 			return 'Cell';
 	}
 
 	static clearscope class<Inventory> BFGCollectCounterType(PlayerPawn pawn)
 	{
-		return FDPP_Common.BFG_COLLECT_COUNTERS[BFGTheme(pawn)];
+		return ratfd_Common.BFG_COLLECT_COUNTERS[BFGTheme(pawn)];
 	}
 
 	static clearscope class<Inventory> BFGChargeType(PlayerPawn pawn)
 	{
-		return FDPP_Common.BFG_CHARGE_TYPES[BFGTheme(pawn)];
+		return ratfd_Common.BFG_CHARGE_TYPES[BFGTheme(pawn)];
 	}
 
 	private static clearscope bool AmmoFull(Inventory item)
@@ -386,58 +386,58 @@ struct FDPP_Common play
 	static clearscope class<Weapon> PistolType(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
-			return FDPP_Common.PISTOL_TYPES[MainTheme(pawn)];
+			return ratfd_Common.PISTOL_TYPES[MainTheme(pawn)];
 		else
-			return FDPP_Common.PISTOL_TYPES_CUSTOMIZER[BFGTheme(pawn)];
+			return ratfd_Common.PISTOL_TYPES_CUSTOMIZER[BFGTheme(pawn)];
 	}
 
 	static clearscope class<Weapon> BFGType(PlayerPawn pawn)
 	{
 		if (!Customizer() || !(pawn is 'FDCPlayer'))
-			return FDPP_Common.BFG_TYPES[MainTheme(pawn)];
+			return ratfd_Common.BFG_TYPES[MainTheme(pawn)];
 		else
-			return FDPP_Common.BFG_TYPES_CUSTOMIZER[BFGTheme(pawn)];
+			return ratfd_Common.BFG_TYPES_CUSTOMIZER[BFGTheme(pawn)];
 	}
 }
 
-enum FDPP_Theme
+enum ratfd_Theme
 {
-	FDPP_THEME_PLUTONIA,
-	FDPP_THEME_TNT,
-	FDPP_THEME_DOOM2,
-	FDPP_THEME_ANCIENTALIENS,
-	FDPP_THEME_JPCP,
-	FDPP_THEME_BTSX,
-	FDPP_THEME_HELLBOUND,
-	FDPP_THEME_ALIENVENDETTA,
-	FDPP_THEME_WHITEMARE,
-	__FDPP_THEME_COUNT__
+	RATFD_THEME_PLUTONIA,
+	RATFD_THEME_TNT,
+	RATFD_THEME_DOOM2,
+	RATFD_THEME_ANCIENTALIENS,
+	RATFD_THEME_JPCP,
+	RATFD_THEME_BTSX,
+	RATFD_THEME_HELLBOUND,
+	RATFD_THEME_ALIENVENDETTA,
+	RATFD_THEME_WHITEMARE,
+	__RATFD_THEME_COUNT__
 }
 
-enum FDPP_ItemVisual
+enum ratfd_ItemVisual
 {
-	FDPP_ITEMVIS_GENERIC = 0,
-	FDPP_ITEMVIS_NORMAL = 1,
-	FDPP_ITEMVIS_FANCYGENERIC = 2
+	RATFD_ITEMVIS_GENERIC = 0,
+	RATFD_ITEMVIS_NORMAL = 1,
+	RATFD_ITEMVIS_FANCYGENERIC = 2
 }
 
-enum FDPP_DynVisual
+enum ratfd_DynVisual
 {
-	FDPP_DYNVIS_ALL = 0,
-	FDPP_DYNVIS_DYNAMIC = 1
+	RATFD_DYNVIS_ALL = 0,
+	RATFD_DYNVIS_DYNAMIC = 1
 }
 
-enum FDPP_BFGAmmoSystem
+enum ratfd_BFGAmmoSystem
 {
-	FDPP_BFGAMMO_ALLLARGE,
-	FDPP_BFGAMMO_FROMCELL,
-	FDPP_BFGAMMO_CELLSEPARATE,
-	FDPP_BFGAMMO_LARGESEPARATE,
-	FDPP_BFGAMMO_VANILLA,
+	RATFD_BFGAMMO_ALLLARGE,
+	RATFD_BFGAMMO_FROMCELL,
+	RATFD_BFGAMMO_CELLSEPARATE,
+	RATFD_BFGAMMO_LARGESEPARATE,
+	RATFD_BFGAMMO_VANILLA,
 }
 
-enum FDPP_PistolAmmoSystem
+enum ratfd_PistolAmmoSystem
 {
-	FDPP_PISTOLAMMO_INFINITE,
-	FDPP_PISTOLAMMO_BULLET,
+	RATFD_PISTOLAMMO_INFINITE,
+	RATFD_PISTOLAMMO_BULLET,
 }
