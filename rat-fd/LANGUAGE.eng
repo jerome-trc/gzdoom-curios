@@ -23,3 +23,14 @@ RATFD_OPTLBL_PROJTRAILS = "Projectile Trails";
 RATFD_OPTTIP_PROJTRAILS =
 	"Significantly reduces the trails of projectiles fired by \n"
 	"BTSXGuy's Plasma Vulcan to improve FPS.";
+
+// Armor ///////////////////////////////////////////////////////////////////////
+
+RATFD_DISCARDEDINFERIORARMOR =
+	"\c[White]Discarded what was left of your lighter armour.";
+RATFD_ARMORBONUS_FOUND =
+	"\c[White]Didn't pick up an \c[Green]armor bonus\c[White], but marked it as found.";
+RATFD_GREENARMOR_PARTIAL =
+	"\c[White]Repaired your worn armour by scavenging \c[Green]security armor\c[White].";
+RATFD_BLUEARMOR_PARTIAL =
+	"\c[White]Repaired your worn armour by scavenging \c[Green]combat armor\c[White].";

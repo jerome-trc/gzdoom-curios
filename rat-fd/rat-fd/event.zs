@@ -1,13 +1,24 @@
 // Rectifies ammo capacities to intended values when using the Customizer add-on.
-class ratfd_EventHandler : EventHandler
+class ratfd_EventHandler : StaticEventHandler
 {
+	private Dictionary replaceMap;
+
 	final override void OnRegister()
 	{
-		if (!ratfd_Common.Customizer())
-		{
-			Destroy();
-			return;
-		}
+		self.replaceMap = Dictionary.Create();
+
+		self.replaceMap.Insert("GreenArmor", "ratfd_GreenArmor");
+		self.replaceMap.Insert("FDGreenArmorPickup", "ratfd_GreenArmor");
+
+		self.replaceMap.Insert("BlueArmor", "ratfd_BlueArmor");
+		self.replaceMap.Insert("FDBlueArmorPickup", "ratfd_BlueArmor");
+
+		self.replaceMap.Insert("FDBerserkPickup", "ratfd_Berserk");
+		self.replaceMap.Insert("FDBTSXPlasmaProjectile", "ratfd_BTSXPlasmaProjectile");
+		self.replaceMap.Insert("FDBTSXFancyPlasmaProjectile", "ratfd_BTSXFancyPlasmaProjectile");
+
+		self.replaceMap.Insert("ArmorBonus", "ratfd_ArmorBonus");
+		self.replaceMap.Insert("FDArmorBonusPickup", "ratfd_ArmorBonus");
 
 		for (uint i = 0; i < 5; i++)
 			for (uint ii = 0; ii < __RATFD_THEME_COUNT__; ii++)
@@ -96,14 +107,14 @@ class ratfd_EventHandler : EventHandler
 		FixFDCAmmoCapacities(event.PlayerNumber);
 	}
 
+	/// Use this event instead of `replaces` qualifiers,
+	/// since it seems to be more reliable.
 	final override void CheckReplacement(ReplaceEvent event)
 	{
-		if (event.Replacee is 'FDBerserkPickup')
-			event.Replacement = 'ratfd_Berserk';
-		else if (event.Replacee.GetClassName() == 'FDBTSXPlasmaProjectile')
-			event.Replacement = 'ratfd_BTSXPlasmaProjectile';
-		else if (event.Replacee.GetClassName() == 'FDBTSXFancyPlasmaProjectile')
-			event.Replacement = 'ratfd_BTSXFancyPlasmaProjectile';
+		let tn = self.replaceMap.At(event.replacee.GetClassName());
+
+		if (tn.Length() != 0)
+			event.replacement = (class<Actor>)(tn);
 	}
 
 	// Non-Customizer players have an ACS script that tracks if any of them are
